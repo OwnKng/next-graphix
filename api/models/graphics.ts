@@ -60,6 +60,10 @@ const graphicsSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    interaction: {
+      type: String,
+      required: false,
+    },
     likes: {
       type: Number,
       default: 0,

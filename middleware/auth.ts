@@ -8,6 +8,7 @@ export default async (req, res, next) => {
     next()
   } else {
     res.status(401)
+    res.send({ message: 'You must be signed in to perform this operation' })
     res.end()
   }
 }

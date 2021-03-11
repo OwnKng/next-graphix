@@ -1,10 +1,14 @@
-const mongoose = require('mongoose')
+import { nanoid } from 'nanoid'
+import mongoose from 'mongoose'
 
-const dataSchema = mongoose.Schema(
+const dataSchema = new mongoose.Schema(
   {
+    _id: {
+      type: String,
+      default: () => nanoid(),
+    },
     createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: true,
     },
     name: {
@@ -25,5 +29,4 @@ const dataSchema = mongoose.Schema(
   },
 )
 
-const Data = mongoose.model('Data', dataSchema)
-module.exports = Data
+export const Data = mongoose.models.Data || mongoose.model('Data', dataSchema)

@@ -14,25 +14,27 @@ type selectionsType = {
   palette: string
 }
 
-export const createChart = async (userId: string, selections: selectionsType) => {
-  Graphics.create({
-    ...selections,
-    createdBy: userId,
-  })
-}
+export const createChart = async (userId: string, selections: selectionsType) => Graphics.create({
+  ...selections,
+  createdBy: userId,
+}).then((response) => response._id)
 
 export const getUserCharts = async (userId: string) => Graphics.find({ createdBy: userId })
 
 export const getChart = async (chartId: string) => Graphics.findById(chartId)
 
-export const getCharts = async () => Graphics.find()
+export const getCharts = async (geometry: string | undefined) => {
+  if (!geometry) return Graphics.find()
+
+  return Graphics.find({ geometry })
+}
 
 export const likeChart = async (userId: string, chartId: string) => {
   const chart = await Graphics.findById(chartId)
   const hasUser = chart.likedBy.indexOf(userId)
 
   if (hasUser >= 0) {
-    return await Graphics.findByIdAndUpdate(
+    return Graphics.findByIdAndUpdate(
       chartId,
       {
         $pull: {
@@ -47,7 +49,7 @@ export const likeChart = async (userId: string, chartId: string) => {
       },
     )
   }
-  return await Graphics.findByIdAndUpdate(
+  return Graphics.findByIdAndUpdate(
     chartId,
     {
       $push: {
@@ -63,4 +65,6 @@ export const likeChart = async (userId: string, chartId: string) => {
   )
 }
 
-export const deleteChart = async (chartId: string) => Graphics.deleteOne({ _id: chartId })
+export const likedCharts = async (userId: string) => await Graphics.find({ likedBy: userId })
+
+export const deleteChart = async (userId: string, chartId: string) => Graphics.deleteOne({ createdBy: userId, _id: chartId })
