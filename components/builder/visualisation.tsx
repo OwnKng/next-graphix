@@ -5,7 +5,6 @@ import Scatter from '../visualisations/scatter'
 import { elevation } from '../styled/utilities'
 import Line from '../visualisations/Line'
 import Bar from '../visualisations/Bar'
-import Interaction from './interaction'
 
 type VisualisationProps = {
     className: string
@@ -15,8 +14,6 @@ const Visualisation = ({ className }: VisualisationProps) => {
   const {
     selections, updateSelections,
   } = useSelections()
-
-  const [filter, setFilter] = useState(selections.data)
 
   return (
     <div className={className}>
@@ -34,9 +31,6 @@ const Visualisation = ({ className }: VisualisationProps) => {
         {selections.geometry === 'bar' && (
           <Bar {...selections} />
         )}
-      </div>
-      <div className="interaction">
-        <Interaction data={selections.data} interaction={selections.interaction} setFilter={setFilter} />
       </div>
     </div>
   )
