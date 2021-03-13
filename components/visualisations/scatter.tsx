@@ -2,18 +2,30 @@ import ParentSize from '@visx/responsive/lib/components/ParentSize'
 import { Circle } from '@visx/shape'
 import { scaleOrdinal, scaleLinear } from '@visx/scale'
 import { AnimatedGridRows } from '@visx/react-spring'
-import { extent } from 'd3'
 import { useTooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip'
 import { localPoint } from '@visx/event'
 import { voronoi } from '@visx/voronoi'
 import { useRef, useMemo, useCallback } from 'react'
-import { useSelections, useScale } from '../../hooks'
+import { useScale } from '../../hooks'
 
 import AxisLeft from './AxisLeft'
 import AxisBottom from './AxisBottom'
 
 import { palettes } from '../styled/utilities'
 import Legend from './Legend'
+
+type ScatterProps = {
+  data: any[],
+  x: string,
+  y: string,
+  label: string,
+  color: string,
+  geometry: string,
+  palette: string,
+  width: number,
+  height: number,
+  margin: {top: number, left: number, right: number, bottom: number}
+}
 
 const Scatter = ({
   data,
@@ -28,7 +40,7 @@ const Scatter = ({
   margin = {
     top: 60, left: 60, right: 30, bottom: 80,
   },
-}) => {
+}: ScatterProps) => {
   // Set dimensions
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.bottom - margin.top
@@ -41,13 +53,9 @@ const Scatter = ({
 
   // Create scales
   const [xScale] = useScale(data, getX)
+  const [yScale] = useScale(data, getY)
   xScale.range([margin.left, innerWidth + margin.left])
-
-  const yScale = scaleLinear({
-    range: [innerHeight + margin.top, margin.top],
-    domain: extent(data, getY),
-    nice: true,
-  })
+  yScale.range([innerHeight + margin.top, margin.top])
 
   const colorScale = scaleOrdinal({
     domain: [...new Set(data.map(getColor))],
@@ -168,7 +176,7 @@ const Scatter = ({
   )
 }
 
-const ChartWrapper = (props) => (
+const ChartWrapper = (props: any) => (
   <ParentSize>
     {({ width, height }) => <Scatter width={width} height={height} {...props} />}
   </ParentSize>

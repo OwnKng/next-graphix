@@ -1,7 +1,6 @@
 import { AnimatedAxis } from '@visx/react-spring'
 import { AxisBottom as AxisBottomVisx } from '@visx/axis'
 import { format } from 'd3'
-import { useSelections } from '../../hooks'
 
 const AxisBottom = ({
   top, animated = true, scale, x,
