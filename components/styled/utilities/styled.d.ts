@@ -7,10 +7,12 @@ declare module 'styled-components' {
         background: string;
         foreground: string;
         middleground: string;
+        border: string;
         accent: string;
         userInput: string;
         selected: string;
         heading: string;
+        headingHover: string;
         paragraph: string;
         button: string;
         buttonText: string;
@@ -21,6 +23,6 @@ declare module 'styled-components' {
         medium: number;
         high: number;
         highest: number
-    }
+    },
   }
 }

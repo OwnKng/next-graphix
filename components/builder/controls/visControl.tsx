@@ -24,9 +24,7 @@ const VisControl = ({ open, setOpen }) => {
 
   return (
     <Menu>
-      <div className="title" onClick={() => setOpen('visualisation')}>
-        <Heading>Visualisation</Heading>
-      </div>
+      <Heading onClick={() => setOpen('visualisation')}>Visualisation</Heading>
       <Control open={open}>
         <h4>Geometry</h4>
         <Panel>

@@ -1,17 +1,17 @@
 import ParentSize from '@visx/responsive/lib/components/ParentSize'
 import { Circle } from '@visx/shape'
-import { scaleOrdinal, scaleLinear } from '@visx/scale'
+import { scaleOrdinal } from '@visx/scale'
 import { AnimatedGridRows } from '@visx/react-spring'
 import { useTooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip'
 import { localPoint } from '@visx/event'
 import { voronoi } from '@visx/voronoi'
 import { useRef, useMemo, useCallback } from 'react'
 import { useScale } from '../../hooks'
+import { VizLight, palettes } from '../styled/utilities'
 
 import AxisLeft from './AxisLeft'
 import AxisBottom from './AxisBottom'
 
-import { palettes } from '../styled/utilities'
 import Legend from './Legend'
 
 type ScatterProps = {
@@ -22,6 +22,8 @@ type ScatterProps = {
   color: string,
   geometry: string,
   palette: string,
+  styles: string,
+  theme: string,
   width: number,
   height: number,
   margin: {top: number, left: number, right: number, bottom: number}
@@ -35,6 +37,8 @@ const Scatter = ({
   color,
   geometry,
   palette,
+  styles,
+  theme,
   width,
   height,
   margin = {
@@ -114,7 +118,7 @@ const Scatter = ({
   // Return the chart
   return (
     <>
-      <svg width={width} height={height} ref={svgRef}>
+      <svg width={width} height={height} ref={svgRef} style={{ background: theme.background }}>
         <rect
           x={margin.left}
           y={margin.top}
@@ -127,15 +131,15 @@ const Scatter = ({
           onTouchEnd={handleMouseLeave}
         />
         <g transform={`translate(${margin.left},0)`}>
-          <AxisLeft scale={yScale} y={y} />
+          <AxisLeft scale={yScale} y={y} color={theme.text} />
           <AnimatedGridRows
             scale={yScale}
-            stroke="var(--color-paragraph)"
+            stroke={theme.stroke}
             strokeWidth={0.2}
             width={innerWidth}
           />
         </g>
-        <AxisBottom x={x} top={innerHeight + margin.top} scale={xScale} />
+        <AxisBottom x={x} top={innerHeight + margin.top} scale={xScale} color={theme.text} styles={styles.xAxis} />
         {geometry === 'point'
           && data.map((point, i) => (
             <Circle
@@ -170,7 +174,7 @@ const Scatter = ({
           </TooltipWithBounds>
       )}
       {color !== 'none' ? (
-        <Legend left={margin.left} scale={colorScale} />
+        <Legend left={margin.left} scale={colorScale} color={theme.text} />
       ) : null}
     </>
   )

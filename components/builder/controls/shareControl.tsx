@@ -18,7 +18,6 @@ const ShareControls = ({ open, setOpen }) => {
 
   const createGraph = async (data: object) => {
     if (!data.title.length) data = { ...data, title: 'Unnamed chart' }
-
     await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/graphics`, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -35,9 +34,7 @@ const ShareControls = ({ open, setOpen }) => {
 
   return (
     <Menu>
-      <div className="title" onClick={() => setOpen('share')}>
-        <Heading>Share</Heading>
-      </div>
+      <Heading onClick={() => setOpen('share')}>Share</Heading>
       <Control open={open}>
         <Button
           onClick={() => {
@@ -68,7 +65,7 @@ const ShareControls = ({ open, setOpen }) => {
             an X and Y variable.
           </span>
         )}
-        <p to="/feed">Manage my graphs</p>
+        <Link href="/user">Manage my graphs</Link>
       </Control>
     </Menu>
   )

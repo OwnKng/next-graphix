@@ -10,14 +10,15 @@ import { useTooltip, TooltipWithBounds } from '@visx/tooltip'
 import { localPoint } from '@visx/event'
 import Legend from './Legend'
 import AxisBottom from './AxisBottom'
-import { useSelections } from '../../hooks'
 import AxisLeft from './AxisLeft'
 import { palettes } from '../styled/utilities'
 
 const BarChart = ({
   data, x, y, color, reordered, palette,
+  styles,
   width,
   height,
+  theme,
   margin = {
     top: 60, left: 60, right: 30, bottom: 80,
   },
@@ -83,12 +84,12 @@ const BarChart = ({
   // Return the chart
   return (
     <>
-      <svg width={width} height={height}>
+      <svg width={width} height={height} style={{ background: theme.background }}>
         <g transform={`translate(${margin.left},0)`}>
-          <AxisLeft scale={yScale} y={y} />
+          <AxisLeft scale={yScale} y={y} color={theme.text} />
           <AnimatedGridRows
             scale={yScale}
-            stroke="var(--color-paragraph)"
+            stroke={theme.stroke}
             strokeWidth={0.2}
             width={innerWidth}
           />
@@ -114,8 +115,10 @@ const BarChart = ({
         <AxisBottom
           x={x}
           top={innerHeight + margin.top}
-          animated={false}
           scale={xScale}
+          animated={false}
+          color={theme.text}
+          styles={styles.xAxis}
         />
         <rect
           x={margin.left}
@@ -144,7 +147,7 @@ const BarChart = ({
         </TooltipWithBounds>
       )}
       {color !== 'none' ? (
-        <Legend left={margin.left} scale={colorScale} />
+        <Legend left={margin.left} scale={colorScale} color={theme.text} />
       ) : null}
     </>
   )

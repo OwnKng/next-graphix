@@ -2,7 +2,9 @@ import { AnimatedAxis } from '@visx/react-spring'
 import { AxisLeft as AxisLeftVisx } from '@visx/axis'
 import { format } from 'd3'
 
-const AxisLeft = ({ animated = true, scale, y }) => {
+const AxisLeft = ({
+  animated = true, scale, y, color,
+}) => {
   if (animated) {
     return (
       <AnimatedAxis
@@ -13,7 +15,7 @@ const AxisLeft = ({ animated = true, scale, y }) => {
         label={y}
         tickFormat={format('.2s')}
         tickLabelProps={() => ({
-          fill: 'var(--color-paragraph)',
+          fill: color,
           fontSize: 12,
           textAnchor: 'middle',
         })}
@@ -27,7 +29,7 @@ const AxisLeft = ({ animated = true, scale, y }) => {
       label={y}
       tickFormat={format('.2s')}
       tickLabelProps={() => ({
-        fill: 'var(--color-paragraph)',
+        fill: color,
         fontSize: 12,
         textAnchor: 'middle',
       })}

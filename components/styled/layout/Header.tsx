@@ -21,8 +21,11 @@ const Header = ({ className }: HeaderProps) => {
           <Link href="/discover">
             Discover
           </Link>
-          <Link href="/charts">
+          <Link href="/create">
             Create
+          </Link>
+          <Link href="/user">
+            My Graphix
           </Link>
           {session ? (
             <button onClick={() => signOut()}>Sign out</button>
@@ -43,6 +46,7 @@ export default styled(Header)`
   position: sticky;
   top: 0px;
   width: 100%;
+  border-bottom: 1px solid var(--color-border);
   ${elevation[1]};
   z-index: var(--levels-highest);
 

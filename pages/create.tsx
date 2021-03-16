@@ -1,28 +1,40 @@
 import { getSession } from 'next-auth/client'
 import GraphixBuilder from '../components/builder/graphicsBuilder'
-import { getMany } from '../api/controllers/utils'
-import { Data } from '../api/models'
-import { connectToDB } from '../api/connectToDB'
 import SelectionProvider from '../hooks/SelectionProvider'
+import { Data } from '../api/models'
+import { getPublic } from '../api/controllers/utils'
 
-const Create = () => (
+type CreateProps = {
+  data: any[]
+}
+
+const Create = ({ data }: CreateProps) => (
   <SelectionProvider>
-    <GraphixBuilder />
+    <GraphixBuilder data={data} />
   </SelectionProvider>
 )
 
-export const getServerSideProps = async (context: object) => {
+export async function getServerSideProps(context: object) {
   const session = await getSession(context)
-  await connectToDB()
 
-  const results = await getMany(Data, session.user.id)
+  // not signed in
+  if (!session || !session.user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/signin',
+      },
+    }
+  }
 
-  const data = results.map((d) => {
-    const dataset = d.toObject()
+  // get data
+  let data = await getPublic(Data, session.user.id as string)
+  data = data.map((doc) => {
+    const dataset = doc.toObject()
     return dataset
   })
 
-  const props: any = {}
+  const props = {}
   props.data = data
 
   return {

@@ -3,7 +3,7 @@ import { AxisBottom as AxisBottomVisx } from '@visx/axis'
 import { format } from 'd3'
 
 const AxisBottom = ({
-  top, animated = true, scale, x,
+  top, animated = true, scale, x, color, styles,
 }) => {
   if (animated) {
     return (
@@ -11,31 +11,33 @@ const AxisBottom = ({
         top={top}
         orientation="bottom"
         scale={scale}
-        stroke="var(--color-paragraph)"
-        tickStroke="var(--color-paragraph)"
+        stroke={color}
+        tickStroke={color}
         tickFormat={format('d')}
         label={x}
         tickLabelProps={() => ({
-          fill: 'var(--color-paragraph)',
+          fill: color,
           fontSize: 12,
-          textAnchor: 'middle',
+          textAnchor: styles.textDirection === 'horizontal' ? 'middle' : 'start',
+          transform: styles.textDirection === 'horizontal' ? 'none' : 'rotate(90)',
         })}
       />
     )
   }
   return (
-    <AxisBottomVisx
+    <AnimatedAxis
       top={top}
       orientation="bottom"
       scale={scale}
       label={x}
       numTicks={scale.domain().length}
-      stroke="var(--color-paragraph)"
-      tickStroke="var(--color-paragraph)"
+      stroke={color}
+      tickStroke={color}
       tickLabelProps={() => ({
-        fill: 'var(--color-paragraph)',
+        fill: color,
         fontSize: 12,
-        textAnchor: 'middle',
+        textAnchor: styles.textDirection === 'horizontal' ? 'middle' : 'start',
+        transform: styles.textDirection === 'horizontal' ? 'none' : 'rotate(90)',
       })}
     />
   )

@@ -69,7 +69,7 @@ export default styled(LikedCharts)`
       height: 3px;
       top: 0px;
       left: 0px;
-      background-color: var(--color-accent);
+      background-color: var(--color-button);
     }
   
     .createButton {
@@ -85,7 +85,7 @@ export default styled(LikedCharts)`
   
     .title {
       padding: 10px 20px;
-      background: var(--color-middleground);
+      border-bottom: 1px solid var(--color-border);
   
       h3 {
         margin: 0px;
@@ -95,8 +95,8 @@ export default styled(LikedCharts)`
     .actions {
       display: flex;
       padding: 10px 20px;
-      background: var(--color-middleground);
       justify-content: space-between;
+      border-top: 1px solid var(--color-border);
     }
   
     .left {

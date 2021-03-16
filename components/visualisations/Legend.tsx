@@ -1,6 +1,6 @@
 import { LegendOrdinal } from '@visx/legend'
 
-const Legend = ({ scale, left }) => (
+const Legend = ({ scale, left, color }) => (
   <LegendOrdinal
     scale={scale}
     direction="row"
@@ -16,7 +16,7 @@ const Legend = ({ scale, left }) => (
       display: 'flex',
       fontSize: '12px',
       flexWrap: 'wrap',
-      color: 'var(--color-paragraph)',
+      color,
     }}
   />
 )

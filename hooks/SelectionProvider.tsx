@@ -17,6 +17,11 @@ export default function SelectionProvider({ children }) {
     subtitle: 'Subtitle',
     palette: 'default',
     interaction: 'none',
+    styles: {
+      xAxis: {
+        textDirection: 'horizontal',
+      },
+    },
   })
 
   const updateSelections = (value) => {
@@ -30,6 +35,7 @@ export default function SelectionProvider({ children }) {
         palette: selections.palette,
         title: selections.title,
         subtitle: selections.subtitle,
+        styles: selections.styles,
       }
     } else if (key === 'geometry') {
       newSelections = {
@@ -41,6 +47,7 @@ export default function SelectionProvider({ children }) {
         color: 'none',
         title: selections.title,
         subtitle: selections.subtitle,
+        styles: selections.styles,
       }
     } else {
       newSelections = { ...selections, ...value }

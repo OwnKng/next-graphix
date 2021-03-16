@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Menu } from '../../styled/elements/Menu'
 import Control from '../../styled/elements/Control'
 import { Heading } from '../../styled/elements/Heading'
@@ -8,10 +8,8 @@ import { useType } from '../../../hooks/useType'
 import { Table } from '../../styled/elements/Table'
 import { Button } from '../../styled/elements/Button'
 
-const DataControls = ({ open, setOpen }) => {
+const DataControls = ({ open, setOpen, datasets }) => {
   const [modal, setModal] = useState(false)
-  const [datasets, setDatasets] = useState({ loading: true, dataset: null, error: null })
-
   const { data, updateSelections } = useSelections()
   const { types } = useType(data)
 
@@ -29,39 +27,16 @@ const DataControls = ({ open, setOpen }) => {
       .catch((error) => console.log(error))
   }
 
-  const getDataSets = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/data`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => setDatasets({ loading: false, dataset: response.data, error: null }))
-      .catch((error) => setDatasets({ dataset: null, loading: false, error }))
-  }
-
-  useEffect(() => {
-    getDataSets()
-  }, [])
-
-  const { dataset, loading, error } = datasets
-
   return (
     <>
       <Menu>
-        <div className="title" onClick={() => setOpen('data')}>
-          <Heading>Data</Heading>
-        </div>
+        <Heading onClick={() => setOpen('data')}>Data</Heading>
         <Control open={open}>
-          <h3>Select some data</h3>
-          {loading && (
-            <p>Loading</p>
-          )}
-          {dataset && (
+          <h3>Select data</h3>
+          {datasets && (
             <>
               <select onChange={(e) => setData(e.target.value)}>
-                {dataset.map((d: object) => (
+                {datasets.map((d: object) => (
                   <option value={d._id} key={d._id}>{d.name}</option>
                 ))}
               </select>
@@ -75,9 +50,6 @@ const DataControls = ({ open, setOpen }) => {
                 Add more data
               </Button>
             </>
-          )}
-          {error && (
-            <p>An error occurred</p>
           )}
           {types && (
             <Table>

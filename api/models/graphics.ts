@@ -55,14 +55,19 @@ const graphicsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    styles: {
+      xAxis: {
+        textDirection: {
+          type: String,
+          required: true,
+          default: () => 'horizontal',
+        },
+      },
+    },
     public: {
       type: Boolean,
       required: true,
       default: false,
-    },
-    interaction: {
-      type: String,
-      required: false,
     },
     likes: {
       type: Number,
@@ -75,6 +80,7 @@ const graphicsSchema = new mongoose.Schema(
     ],
   },
   {
+    timestamps: true,
     collection: 'graphics',
   },
 )

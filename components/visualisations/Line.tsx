@@ -20,10 +20,11 @@ const tooltipStyles = {
 }
 
 const LineChart = ({
-  data, x, y, color, palette,
+  data, x, y, color, palette, styles,
   className,
   width,
   height,
+  theme,
   margin = {
     top: 60, left: 60, right: 30, bottom: 80,
   },
@@ -97,7 +98,7 @@ const LineChart = ({
 
   return (
     <div className={className}>
-      <svg width={width} height={height}>
+      <svg width={width} height={height} style={{ background: theme.background }}>
         {dataGrouped.map((data, i) => (
           <LinePath
             key={i}
@@ -108,15 +109,15 @@ const LineChart = ({
           />
         ))}
         <g transform={`translate(${margin.left},0)`}>
-          <AxisLeft scale={yScale} y={y} />
+          <AxisLeft scale={yScale} y={y} color={theme.stroke} />
           <AnimatedGridRows
             scale={yScale}
-            stroke="var(--color-paragraph)"
+            stroke={theme.stroke}
             strokeWidth={0.2}
             width={innerWidth}
           />
         </g>
-        <AxisBottom top={innerHeight + margin.top} scale={xScale} x={x} />
+        <AxisBottom top={innerHeight + margin.top} scale={xScale} x={x} color={theme.stroke} styles={styles.xAxis} />
         <Bar
           x={margin.left}
           y={margin.top}
@@ -134,7 +135,7 @@ const LineChart = ({
             <Line
               from={{ x: tooltipLeft, y: margin.top }}
               to={{ x: tooltipLeft, y: innerHeight + margin.top }}
-              stroke="var(--color-paragraph)"
+              stroke={theme.text}
               opacity={0.5}
               strokeWidth={1}
               pointerEvents="none"
@@ -170,7 +171,7 @@ const LineChart = ({
         </TooltipWithBounds>
       )}
       {color !== 'none' ? (
-        <Legend left={margin.left} scale={colorScale} />
+        <Legend left={margin.left} scale={colorScale} color={theme.text} />
       ) : null}
     </div>
   )

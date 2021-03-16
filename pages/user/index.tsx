@@ -44,14 +44,14 @@ const App = ({
 
   return (
     <div className={className}>
-      <div className="header">
+      <div className="hero">
         <img src={user.image} />
         <h1>
           {user.name}
           's graphix
         </h1>
       </div>
-      <GraphList graphs={charts} deleteChart={deleteChart} />
+      <GraphList graphs={charts} deleteChart={deleteChart} likeChart={likeChart} />
       <LikedCharts liked={liked} like={likeChart} />
     </div>
   )
@@ -98,11 +98,12 @@ export async function getServerSideProps(context: object) {
 export default styled(App)`
   width: 100%;
 
-  .header {
+  .hero {
     display: flex;
     flex-direction: column;
     padding: 100px 0px 20px;
     justify-items: flex-end;
+    background: var(--color-button);
     
   img {
     margin: 0px auto;

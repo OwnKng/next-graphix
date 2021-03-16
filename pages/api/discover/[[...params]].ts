@@ -7,8 +7,14 @@ const handler = nc({ onError })
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const geometry = req.query.params ? req.query.params[0] : undefined
-    const graphs = await graphics.getCharts(geometry)
+    let geometry
+    let cursor
+    if (req.query.params) {
+      geometry = req.query.params[0]
+      cursor = req.query.params[1]
+    }
+
+    const graphs = await graphics.getCharts(geometry || undefined, cursor || undefined)
 
     if (!graphs) {
       return res.status(400).end()

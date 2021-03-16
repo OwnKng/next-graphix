@@ -4,25 +4,35 @@ import { graphics } from '../../api/controllers'
 import Line from '../../components/visualisations/Line'
 import Bar from '../../components/visualisations/Bar'
 import Scatter from '../../components/visualisations/scatter'
-import { elevation } from '../../components/styled/utilities'
+import { elevation, Light, Dark } from '../../components/styled/utilities'
 
 const Discover = ({ graph, className }) => {
   const viz = graph[0]
 
+  const theme = viz.theme === 'dark' ? Dark : Light
+
   return (
-    <div className={className}>
-      <div className="vizWrapper">
+    <div
+      className={className}
+    >
+      <div
+        className="vizWrapper"
+        style={{
+          color: theme.text,
+          background: theme.background,
+        }}
+      >
         <h1>{viz.title}</h1>
         <h2>{viz.subtitle}</h2>
         <div className="viz">
           {viz.geometry === 'bar' && (
-          <Bar {...viz} />
+          <Bar {...viz} theme={theme} />
           )}
           {viz.geometry === 'line' && (
-          <Line {...viz} />
+          <Line {...viz} theme={theme} />
           )}
           {viz.geometry === 'point' && (
-          <Scatter {...viz} />
+          <Scatter {...viz} theme={theme} />
           )}
         </div>
       </div>

@@ -3,16 +3,17 @@ import Visualisation from './visualisation'
 import Controls from './controls'
 
 type GraphixBuilderProps = {
-  className: string
+  className: string,
+  data: any[]
 }
 
-const GraphixBuilder = ({ className }: GraphixBuilderProps) => (
+const GraphixBuilder = ({ className, data }: GraphixBuilderProps) => (
   <div className={className}>
     <div style={{ gridArea: 'viz' }}>
       <Visualisation />
     </div>
     <div style={{ gridArea: 'controls' }}>
-      <Controls />
+      <Controls data={data} />
     </div>
   </div>
 )

@@ -11,11 +11,12 @@ import { elevation } from './styled/utilities'
 type GraphListProps = {
   className: string,
   graphs: any[],
-  deleteChart: (_id: string) => void
+  deleteChart: (_id: string) => void,
+  likeChart: (_id: string) => void
 }
 
 const GraphList = ({
-  graphs, deleteChart, className,
+  graphs, deleteChart, className, likeChart,
 }: GraphListProps) => {
   const router = useRouter()
 
@@ -45,9 +46,9 @@ const GraphList = ({
               <div className="actions">
                 <div>
                   <span>{graph.likes}</span>
-                  <ThumbsUp size="30" />
+                  <ThumbsUp className="like" onClick={() => likeChart(graph._id)} size="30" />
                 </div>
-                <DeleteOutline size="30" onClick={() => deleteChart(graph._id)} />
+                <DeleteOutline className="bin" size="30" onClick={() => deleteChart(graph._id)} />
               </div>
             </Card>
           ))}
@@ -60,6 +61,22 @@ const GraphList = ({
 export default styled(GraphList)`
   background: var(--color-primary);
   padding: 20px 0px;
+
+  span {
+    color: var(--color-button);
+  }
+
+  .like {
+    :hover {
+      color: var(--color-button);
+    }
+  }
+
+  .bin {
+    :hover {
+      color: var(--color-accent);
+    }
+  }
 
   .inner {
     display: flex;
@@ -80,14 +97,16 @@ export default styled(GraphList)`
     height: 3px;
     top: 0px;
     left: 0px;
-    background-color: var(--color-accent);
+    background-color: var(--color-button);
   }
 
   .createButton {
+    min-height: 500px;
     background: var(--color-foreground);
     color: var(--color-button);
     border: none;
-    ${elevation[1]}
+    ${elevation[1]};
+    border: 1px solid var(--color-border);
   }
 
   .createButton:hover {
@@ -96,7 +115,7 @@ export default styled(GraphList)`
 
   .title {
     padding: 10px 20px;
-    background: var(--color-middleground);
+    border-bottom: 1px solid var(--color-border);
 
     h3 {
       margin: 0px;
@@ -106,11 +125,9 @@ export default styled(GraphList)`
   .actions {
     display: flex;
     padding: 10px 20px;
-    background: var(--color-middleground);
+    border-top: 1px solid var(--color-border);
     justify-content: space-between;
   }
-
-
 
   .left {
     flex-basis: 500px;
@@ -126,6 +143,8 @@ export default styled(GraphList)`
   .vizWrapper {
     position: relative;
     height: 400px;
+    width: calc(100% - 2px);
+    margin: 0px auto;
   }
 
   a {

@@ -1,8 +1,5 @@
 import elevation from './Elevation'
-import theme from './theme'
 
 export * from './palettes'
-
+export * from './theme'
 export { elevation }
-
-export { theme }
