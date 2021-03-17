@@ -1,8 +1,8 @@
 import { getSession } from 'next-auth/client'
 import GraphixBuilder from '../components/builder/graphicsBuilder'
 import SelectionProvider from '../hooks/SelectionProvider'
-import { Data } from '../api/models'
-import { getPublic } from '../api/controllers/utils'
+import { Data } from '../db/models'
+import { getPublic } from '../db/controllers/utils'
 
 type CreateProps = {
   data: any[]

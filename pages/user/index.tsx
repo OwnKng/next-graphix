@@ -1,8 +1,8 @@
 import { getSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { connectToDB } from '../../api/connectToDB'
-import { graphics } from '../../api/controllers'
+import { connectToDB } from '../../db/connectToDB'
+import { graphics } from '../../db/controllers'
 import GraphList from '../../components/graphList'
 import LikedCharts from '../../components/likedCharts'
 

@@ -1,6 +1,6 @@
 import nc from 'next-connect'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { graphics } from '../../../api/controllers/index'
+import { graphics } from '../../../db/controllers/index'
 import middleware from '../../../middleware/all'
 import onError from '../../../middleware/error'
 

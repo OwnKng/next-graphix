@@ -2,8 +2,8 @@ import nc from 'next-connect'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import middleware from '../../../middleware/all'
 import onError from '../../../middleware/error'
-import { Data } from '../../../api/models'
-import { createOne, getPublic } from '../../../api/controllers/utils'
+import { Data } from '../../../db/models'
+import { createOne, getPublic } from '../../../db/controllers/utils'
 
 const handler = nc({
   onError,
