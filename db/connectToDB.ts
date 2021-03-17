@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 export const connectToDB = async () => {
   if (mongoose.connection.readyState >= 1) {
-    return
+    return {}
   }
 
   return mongoose.connect(process.env.DATABASE_URL, {
