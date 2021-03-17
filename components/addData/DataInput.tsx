@@ -13,8 +13,8 @@ type dataInputProps = {
 }
 
 const DataInput = ({ className, toggle }: dataInputProps) => {
-  const [data, setData] = useState()
-  const [title, setTitle] = useState()
+  const [data, setData] = useState<any>()
+  const [title, setTitle] = useState<string | undefined>()
 
   const postData = async () => {
     const dataset = { name: title, data: JSON.stringify(data), public: true }
