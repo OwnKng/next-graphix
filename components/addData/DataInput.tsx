@@ -29,7 +29,7 @@ const DataInput = ({ className, toggle }: dataInputProps) => {
     if (res.status === 200) Router.reload()
   }
 
-  const handleCSV = (event) => {
+  const handleCSV = (event: any) => {
     const { data, errors } = Papa.parse(event.target.value, {
       header: true,
       dynamicTyping: true,
