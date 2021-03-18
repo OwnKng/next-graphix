@@ -18,9 +18,9 @@ const Discover = ({ className }: DiscoverProps) => {
   const getCharts = async (geometry: string, cusorPos: string) => {
     let url
     if (geometry === 'all') {
-      url = `${process.env.NEXT_PUBLIC_API_HOST}/api/discover/`
+      url = `${process.env.NEXT_PUBLIC_API_HOST || ''}/api/discover/`
     } else {
-      url = `${process.env.NEXT_PUBLIC_API_HOST}/api/discover/${geometry}`
+      url = `${process.env.NEXT_PUBLIC_API_HOST || ''}/api/discover/${geometry}`
     }
 
     if (cusorPos) url = `${url}/${cusorPos}`
