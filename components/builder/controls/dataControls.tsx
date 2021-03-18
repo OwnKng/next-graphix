@@ -14,7 +14,7 @@ const DataControls = ({ open, setOpen, datasets }) => {
   const { types } = useType(data)
 
   const setData = async (id) => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/data/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/data/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
