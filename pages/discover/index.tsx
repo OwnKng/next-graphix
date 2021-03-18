@@ -44,7 +44,7 @@ const Discover = ({ className }: DiscoverProps) => {
   }
 
   const likeChart = async (_id: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/likes/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/likes/${_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

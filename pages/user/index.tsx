@@ -23,7 +23,7 @@ const App = ({
   }
 
   const likeChart = async (_id: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/likes/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/likes/${_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ const App = ({
   }
 
   const deleteChart = async (_id: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/graphics/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/graphics/${_id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
