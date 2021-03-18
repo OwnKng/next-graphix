@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
 import Visualisation from '../../components/visualisations/Visualisation'
 import { elevation } from '../../components/styled/utilities'
