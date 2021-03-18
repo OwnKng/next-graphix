@@ -18,7 +18,7 @@ const ShareControls = ({ open, setOpen }) => {
 
   const createGraph = async (data: object) => {
     if (!data.title.length) data = { ...data, title: 'Unnamed chart' }
-    await fetch('/api/graphics', {
+    await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/graphics`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
