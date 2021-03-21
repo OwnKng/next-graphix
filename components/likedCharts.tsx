@@ -7,6 +7,7 @@ import Visualisation from './visualisations/Visualisation'
 
 type LikedChartsProps = {
     liked: object,
+    like: any,
     className: string
 }
 
@@ -54,7 +55,29 @@ export default styled(LikedCharts)`
       display: flex;
       padding: 20px 20px;
     }
+
+    .left {
+      flex-basis: 500px;
+    }
   
+    .right {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .inner {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .right {
+        grid-template-columns: 1fr;
+      }
+    }
+    
     h2 {
       position: relative;
       margin: 0px;
@@ -98,18 +121,7 @@ export default styled(LikedCharts)`
       justify-content: space-between;
       border-top: 1px solid var(--color-border);
     }
-  
-    .left {
-      flex-basis: 500px;
-    }
-  
-    .right {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 20px;
-    }
-    
+
     .vizWrapper {
       position: relative;
       height: 400px;
