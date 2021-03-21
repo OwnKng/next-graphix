@@ -131,6 +131,38 @@ export default styled(Discover)`
     }
   }
 
+
+  .left {
+    flex-basis: 500px;
+  }
+
+  .right {
+    width: 100%;
+  }
+
+  .list {
+    display: flex;
+    padding: 20px 20px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .list {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+
   h1 {
     text-transform: uppercase;
     text-align: center;
@@ -168,19 +200,6 @@ export default styled(Discover)`
     min-width: 250px;
   }
 
-  .left {
-    flex-basis: 500px;
-  }
-
-  .right {
-    width: 100%;
-  }
-
-  .list {
-    display: flex;
-    padding: 20px 20px;
-  }
-
   .card {
     display: flex;
     flex-direction: column;
@@ -199,12 +218,6 @@ export default styled(Discover)`
     font-size: 1.4rem;
     text-decoration: none;
     color: var(--color-paragraph);
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
   }
 
   .pagination {

@@ -83,5 +83,6 @@ input:focus{
   background: var(--color-foreground);
   position: relative;
   height: 70vh;
+  width: 100%;
   ${elevation[1]};
 }`

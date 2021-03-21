@@ -124,7 +124,7 @@ export default styled(LikedCharts)`
 
     .vizWrapper {
       position: relative;
-      height: 400px;
+      height: 450px;
     }
   
     a {

@@ -155,7 +155,7 @@ export default styled(GraphList)`
   
   .vizWrapper {
     position: relative;
-    height: 400px;
+    height: 450px;
     width: calc(100% - 2px);
     margin: 0px auto;
   }
