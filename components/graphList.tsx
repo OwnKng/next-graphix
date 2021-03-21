@@ -62,6 +62,33 @@ export default styled(GraphList)`
   background: var(--color-primary);
   padding: 20px 0px;
 
+  .inner {
+    display: flex;
+    padding: 20px 20px;
+  }
+
+  .left {
+    flex-basis: 500px;
+  }
+
+  .right {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .inner {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .right {
+      grid-template-columns: 1fr;
+    }
+  }
+
   span {
     color: var(--color-button);
   }
@@ -76,11 +103,6 @@ export default styled(GraphList)`
     :hover {
       color: var(--color-accent);
     }
-  }
-
-  .inner {
-    display: flex;
-    padding: 20px 20px;
   }
 
   h2 {
@@ -129,16 +151,7 @@ export default styled(GraphList)`
     justify-content: space-between;
   }
 
-  .left {
-    flex-basis: 500px;
-  }
 
-  .right {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-  }
   
   .vizWrapper {
     position: relative;

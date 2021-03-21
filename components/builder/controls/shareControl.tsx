@@ -26,8 +26,8 @@ const ShareControls = ({ open, setOpen }) => {
       },
     })
       .then((response) => response.json())
-      .then((response) => setShared({ link: response.data, error: false }))
-      .catch(() => setShared({ link: null, error: true }))
+      .then((response) => setShared({ link: response.data, error: response.error }))
+      .catch(() => setShared({ link: null, error: 'An error occured' }))
   }
 
   const { link, error } = shared
@@ -55,7 +55,7 @@ const ShareControls = ({ open, setOpen }) => {
               initial={{ y: -10 }}
               animate={{ y: 0 }}
             >
-              An error occurred
+              {error}
             </motion.span>
           )}
         {link && <Link href={`/discover/${link}`}>{link}</Link>}

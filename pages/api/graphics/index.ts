@@ -13,13 +13,13 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     const graphs = await graphics.createChart(req.user.id, req.body)
 
     if (!graphs) {
-      return res.status(400).end()
+      return res.status(400).json({ error: 'Your account can only hold eight graphs' })
     }
 
     return res.status(200).json({ data: graphs })
   } catch (err) {
     console.log(err)
-    res.status(400).end()
+    res.status(400).json({ error: 'An error occurred' })
   }
 })
 

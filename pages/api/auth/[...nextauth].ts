@@ -24,6 +24,7 @@ export default (req : NextApiRequest, res : NextApiResponse) => NextAuth(req, re
       session.user.id = user.id
       return session
     },
+
     async jwt(tokenPayload, user, account, profile, isNewUser) {
       if (tokenPayload && user) {
         return { ...tokenPayload, id: `${user.id}` }

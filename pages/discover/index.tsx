@@ -5,25 +5,21 @@ import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
 import Visualisation from '../../components/visualisations/Visualisation'
 import { elevation } from '../../components/styled/utilities'
 import { Card } from '../../components/styled/elements/Card'
+import { Button } from '../../components/styled/elements/Button'
 
 type DiscoverProps = {
   className: string,
 }
 
 const Discover = ({ className }: DiscoverProps) => {
-  const [data, setData] = useState({ graphs: null, loading: true, error: false })
-  const [geo, setGeo] = useState('all')
-  const [cursor, setCursor] = useState(false)
+  const [graphics, setGraphics] = useState({ graphs: null, loading: true, error: false })
+  const [offset, setOffset] = useState(0)
+  const [nextPage, setPage] = useState(false)
 
-  const getCharts = async (geometry: string, cusorPos: string) => {
-    let url
-    if (geometry === 'all') {
-      url = `${process.env.NEXT_PUBLIC_API_HOST || ''}/api/discover/`
-    } else {
-      url = `${process.env.NEXT_PUBLIC_API_HOST || ''}/api/discover/${geometry}`
-    }
+  const getCharts = async (offsetPos: number) => {
+    let url = `${process.env.NEXT_PUBLIC_API_HOST || ''}/api/discover`
 
-    if (cusorPos) url = `${url}/${cusorPos}`
+    if (offsetPos) url = `${url}/${offsetPos}`
 
     await fetch(url, {
       method: 'GET',
@@ -33,14 +29,19 @@ const Discover = ({ className }: DiscoverProps) => {
     })
       .then((response) => response.json())
       .then((response) => {
-        setCursor(response.data.cursor)
-        return response.data.graphics.map((d) => {
+        const { data } = response
+        const { hasNextPage } = data
+        setPage(hasNextPage)
+
+        return data.graphics.map((d) => {
           const graph = { ...d, data: JSON.parse(d.data) }
           return graph
         })
       })
-      .then((graphs) => setData({ graphs, error: false, loading: false }))
-      .catch(() => setData({ graphs: null, loading: false, error: true }))
+      .then((graphs) => {
+        setGraphics({ graphs, error: false, loading: false })
+      })
+      .catch(() => setGraphics({ graphs: null, loading: false, error: true }))
   }
 
   const likeChart = async (_id: string) => {
@@ -50,14 +51,14 @@ const Discover = ({ className }: DiscoverProps) => {
         'Content-Type': 'application/json',
       },
     })
-    if (res.status === 200) getCharts(geo, false)
+    if (res.status === 200) getCharts(offset)
   }
 
   useEffect(() => {
-    getCharts(geo, false)
-  }, [geo])
+    getCharts(offset)
+  }, [offset])
 
-  const { graphs, error } = data
+  const { graphs, error } = graphics
 
   return (
     <div className={className}>
@@ -66,14 +67,7 @@ const Discover = ({ className }: DiscoverProps) => {
       </div>
       <div className="list">
         <div className="left">
-          <h2>Latest GRAPHIXS</h2>
-          <label htmlFor="select-geometry">Filter by geometry</label>
-          <select value={geo} onChange={(e) => setGeo(e.target.value)} id="select-geometry">
-            <option value="all">All</option>
-            <option value="point">Point</option>
-            <option value="line">Line</option>
-            <option value="bar">Bar</option>
-          </select>
+          <h2>Most liked graphix</h2>
         </div>
         <div className="right">
           {graphs && (
@@ -101,6 +95,17 @@ const Discover = ({ className }: DiscoverProps) => {
             ))}
           </div>
           )}
+          {error && (
+            <span>An error occured. Please try back later</span>
+          )}
+          <div className="pagination">
+            {offset > 0 ? (
+              <Button onClick={() => setOffset(offset - 8)}>Previous</Button>
+            ) : <div /> }
+            {nextPage ? (
+              <Button onClick={() => setOffset(offset + 8)}>Next</Button>
+            ) : <div />}
+          </div>
         </div>
       </div>
     </div>
@@ -200,5 +205,13 @@ export default styled(Discover)`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
+  }
+
+  .pagination {
+    margin: 20px 0px;
+    border-top: 1px solid var(--color-border);
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-between;
   }
 `

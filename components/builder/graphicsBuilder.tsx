@@ -29,4 +29,11 @@ export default styled(GraphixBuilder)`
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: 25px;
+
+    @media only screen and (max-width: 600px) {
+      height: auto;
+      grid-template-areas: "viz" "controls";
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto;
+    }
 `
