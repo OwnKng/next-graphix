@@ -74,6 +74,7 @@ export async function getServerSideProps(context: object) {
   await connectToDB()
 
   const results = await graphics.getUserCharts(session.user.id)
+
   const charts = results.map((doc) => {
     const chart = doc.toObject()
     return { ...chart, data: JSON.parse(chart.data) }

@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { connectToDB } from '../../db/connectToDB'
-import { graphics } from '../../db/controllers'
-import Line from '../../components/visualisations/Line'
-import Bar from '../../components/visualisations/Bar'
-import Scatter from '../../components/visualisations/scatter'
-import { elevation, Light, Dark } from '../../components/styled/utilities'
+import { connectToDB } from '../../../db/connectToDB'
+import { graphics } from '../../../db/controllers'
+import Line from '../../../components/visualisations/Line'
+import Bar from '../../../components/visualisations/Bar'
+import Scatter from '../../../components/visualisations/scatter'
+import { elevation, Light, Dark } from '../../../components/styled/utilities'
 
 const Discover = ({ graph, className }) => {
   const viz = graph[0]

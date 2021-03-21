@@ -37,7 +37,7 @@ export const getCharts = async (offset: string) => {
   let hasNextPage = false
 
   let graphics = await Graphics
-    .find()
+    .find({}, { createdAt: 0, updatedAt: 0 })
     .skip(parseInt(offset))
     .sort({ likes: -1 })
     .limit(limit + 1)
@@ -47,10 +47,7 @@ export const getCharts = async (offset: string) => {
     graphics = graphics.slice(0, -1)
   }
 
-  return {
-    graphics,
-    hasNextPage,
-  }
+  return graphics
 }
 
 export const likeChart = async (userId: string, chartId: string) => {
