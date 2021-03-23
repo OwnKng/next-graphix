@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
+import { useRouter } from 'next/router'
 import Visualisation from '../../components/visualisations/Visualisation'
 import { elevation } from '../../components/styled/utilities'
 import { Card } from '../../components/styled/elements/Card'
@@ -10,11 +10,14 @@ import { graphics } from '../../db/controllers/index'
 
 type DiscoverProps = {
   className: string,
+  hasNextPage: boolean,
   graphs: any[]
 }
 
-const Discover = ({ className, graphs }: DiscoverProps) => {
-  console.log(graphs)
+const Discover = ({
+  className, graphs, hasNextPage, offset,
+}: DiscoverProps) => {
+  const router = useRouter()
 
   const likeChart = async (_id: string) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/likes/${_id}`, {
@@ -23,6 +26,7 @@ const Discover = ({ className, graphs }: DiscoverProps) => {
         'Content-Type': 'application/json',
       },
     })
+    if (res.status === 200) router.reload()
   }
 
   return (
@@ -39,7 +43,7 @@ const Discover = ({ className, graphs }: DiscoverProps) => {
           <div className="grid">
             {graphs.map((graph) => (
               <Card className="card">
-                <Link href={`/discover/${graph._id}`}>
+                <Link href={`/view/${graph._id}`}>
                   <div>
                     <h3>{graph.title}</h3>
                     <div className="vizWrapper">
@@ -60,7 +64,11 @@ const Discover = ({ className, graphs }: DiscoverProps) => {
             ))}
           </div>
           )}
-          <div className="pagination" />
+          <div className="pagination">
+            {hasNextPage && (
+              <Button onClick={() => router.push(`/discover/${offset + 8}`)}>Load more</Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -68,18 +76,17 @@ const Discover = ({ className, graphs }: DiscoverProps) => {
 }
 
 export const getServerSideProps = async (context: object) => {
-  const props: any = {}
   const results = await graphics.getCharts(context.params.id || undefined)
 
-  const graphs = results.map((doc) => {
+  const graphs = results.graphics.map((doc) => {
     const graph = doc.toObject()
     return { ...graph, data: JSON.parse(graph.data) }
   })
 
-  props.graphs = graphs
+  const { hasNextPage } = results
 
   return {
-    props,
+    props: { graphs, hasNextPage, offset: context.params.id || 0 },
   }
 }
 

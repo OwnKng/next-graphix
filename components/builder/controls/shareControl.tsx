@@ -8,7 +8,7 @@ import { useSelections } from '../../../hooks'
 import { Button } from '../../styled/elements/Button'
 
 const ShareControls = ({ open, setOpen }) => {
-  const { selections } = useSelections()
+  const { selections, updateSelections } = useSelections()
   const [reminder, setReminder] = useState(false)
   const [shared, setShared] = useState({ link: null, error: false })
 
@@ -36,6 +36,10 @@ const ShareControls = ({ open, setOpen }) => {
     <Menu>
       <Heading onClick={() => setOpen('share')}>Share</Heading>
       <Control open={open}>
+        <div>
+          <input id="public" type="checkbox" checked={selections.public} onChange={() => updateSelections({ public: !selections.public })} />
+          <label htmlFor="public">Post graph to Discover</label>
+        </div>
         <Button
           onClick={() => {
             const required = ['data', 'x', 'y', 'theme', 'palette']

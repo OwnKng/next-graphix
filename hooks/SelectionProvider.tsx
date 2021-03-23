@@ -17,6 +17,7 @@ export default function SelectionProvider({ children }) {
     subtitle: 'Subtitle',
     palette: 'default',
     interaction: 'none',
+    public: true,
     styles: {
       xAxis: {
         textDirection: 'horizontal',
@@ -36,6 +37,7 @@ export default function SelectionProvider({ children }) {
         title: selections.title,
         subtitle: selections.subtitle,
         styles: selections.styles,
+        public: true,
       }
     } else if (key === 'geometry') {
       newSelections = {
@@ -48,6 +50,7 @@ export default function SelectionProvider({ children }) {
         title: selections.title,
         subtitle: selections.subtitle,
         styles: selections.styles,
+        public: true,
       }
     } else {
       newSelections = { ...selections, ...value }

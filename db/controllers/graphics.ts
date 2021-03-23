@@ -47,7 +47,10 @@ export const getCharts = async (offset: string) => {
     graphics = graphics.slice(0, -1)
   }
 
-  return graphics
+  return {
+    graphics,
+    hasNextPage,
+  }
 }
 
 export const likeChart = async (userId: string, chartId: string) => {

@@ -71,7 +71,6 @@ export async function getServerSideProps(context: object) {
   }
 
   const props: any = { session }
-  await connectToDB()
 
   const results = await graphics.getUserCharts(session.user.id)
 
