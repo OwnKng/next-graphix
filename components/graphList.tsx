@@ -33,7 +33,7 @@ const GraphList = ({
           </button>
           {graphs.map((graph) => (
             <Card key={graph._id}>
-              <Link href={`/discover/${graph._id}`}>
+              <Link href={`/view/${graph._id}`}>
                 <div>
                   <div className="title">
                     <h3>{graph.title}</h3>
