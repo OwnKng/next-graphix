@@ -1,3 +1,3 @@
 import { User } from '../models/user'
 
-export const getUser = async (userName: string) => await User.find({ name: userName }, { _id: 1 })
+export const getUser = async (id: string) => await User.findById({ _id: id }, { _id: 0, name: 1, image: 1 })

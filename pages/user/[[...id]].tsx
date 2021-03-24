@@ -1,20 +1,22 @@
 import { getSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { graphics } from '../../db/controllers'
+import { graphics, user as userController } from '../../db/controllers'
 import GraphList from '../../components/graphList'
 import LikedCharts from '../../components/likedCharts'
 import { connectToDB } from '../../db/connectToDB'
+import VisualisationGrid from '../../components/visualisations/VisualisationGrid'
 
 type AppProps = {
   className: string
-  charts: any[]
+  graphs: any[]
   user: object
   liked: any[]
+  param: boolean
 }
 
 const App = ({
-  className, graphs, user, liked,
+  className, graphs, user, liked, param,
 }: AppProps) => {
   const router = useRouter()
 
@@ -40,6 +42,22 @@ const App = ({
       },
     })
     if (res.status === 200) refreshData()
+  }
+
+  if (param) {
+    return (
+      <div className={className}>
+        <div className="hero">
+          <img src={user.image} />
+          <h1>
+            {user.name}
+            's graphix
+          </h1>
+        </div>
+        <VisualisationGrid graphs={graphs} />
+        <VisualisationGrid graphs={liked} />
+      </div>
+    )
   }
 
   return (
@@ -78,30 +96,29 @@ export async function getServerSideProps(context: object) {
     return { graphs, liked }
   }
 
-  let graphix
-  let user
-
   if (context.params.id) {
-    graphix = await getGraphixs(context.params.id[0])
-    user = [] // need to fix
-  }
+    const graphix = await getGraphixs(context.params.id[0])
+    const user = await userController.getUser(context.params.id[0])
 
-  if (!context.params.id) {
-    const session = await getSession(context)
-
-    // not signed in
-    if (!session || !session.user) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/signin',
-        },
-      }
+    return {
+      props: { ...graphix, user: { name: user.name, image: user.image }, param: true },
     }
-
-    graphix = await getGraphixs(session.user.id)
-    user = session.user
   }
+
+  const session = await getSession(context)
+
+  // not signed in
+  if (!session || !session.user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/signin',
+      },
+    }
+  }
+
+  const graphix = await getGraphixs(session.user.id)
+  const { user } = session
 
   return {
     props: { ...graphix, user },

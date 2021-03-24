@@ -150,8 +150,6 @@ export default styled(GraphList)`
     border-top: 1px solid var(--color-border);
     justify-content: space-between;
   }
-
-
   
   .vizWrapper {
     position: relative;
