@@ -1,10 +1,10 @@
 import { getSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { connectToDB } from '../../db/connectToDB'
 import { graphics } from '../../db/controllers'
 import GraphList from '../../components/graphList'
 import LikedCharts from '../../components/likedCharts'
+import { connectToDB } from '../../db/connectToDB'
 
 type AppProps = {
   className: string
@@ -71,6 +71,8 @@ export async function getServerSideProps(context: object) {
   }
 
   const props: any = { session }
+
+  await connectToDB()
 
   const results = await graphics.getUserCharts(session.user.id)
 

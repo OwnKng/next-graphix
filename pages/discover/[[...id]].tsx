@@ -7,6 +7,7 @@ import { elevation } from '../../components/styled/utilities'
 import { Card } from '../../components/styled/elements/Card'
 import { Button } from '../../components/styled/elements/Button'
 import { graphics } from '../../db/controllers/index'
+import { connectToDB } from '../../db/connectToDB'
 
 type DiscoverProps = {
   className: string,
@@ -76,6 +77,8 @@ const Discover = ({
 }
 
 export const getServerSideProps = async (context: object) => {
+  await connectToDB()
+
   const results = await graphics.getCharts(context.params.id || undefined)
 
   const graphs = results.graphics.map((doc) => {

@@ -3,6 +3,7 @@ import GraphixBuilder from '../components/builder/graphicsBuilder'
 import SelectionProvider from '../hooks/SelectionProvider'
 import { Data } from '../db/models'
 import { getPublic } from '../db/controllers/utils'
+import { connectToDB } from '../db'
 
 type CreateProps = {
   data: any[]
@@ -28,6 +29,7 @@ export async function getServerSideProps(context: object) {
   }
 
   // get data
+  await connectToDB()
   let data = await getPublic(Data, session.user.id as string)
   data = data.map((doc) => {
     const dataset = doc.toObject()
