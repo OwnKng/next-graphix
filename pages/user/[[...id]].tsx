@@ -14,7 +14,7 @@ type AppProps = {
 }
 
 const App = ({
-  className, charts, user, liked,
+  className, graphs, user, liked,
 }: AppProps) => {
   const router = useRouter()
 
@@ -51,49 +51,60 @@ const App = ({
           's graphix
         </h1>
       </div>
-      <GraphList graphs={charts} deleteChart={deleteChart} likeChart={likeChart} />
+      <GraphList graphs={graphs} deleteChart={deleteChart} likeChart={likeChart} />
       <LikedCharts liked={liked} like={likeChart} />
     </div>
   )
 }
 
 export async function getServerSideProps(context: object) {
-  const session = await getSession(context)
+  const getGraphixs = async (id: string) => {
+    await connectToDB()
 
-  // not signed in
-  if (!session || !session.user) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/signin',
-      },
-    }
+    const results = await graphics.getUserCharts(id)
+
+    const graphs = results.map((doc) => {
+      const chart = doc.toObject()
+      return { ...chart, data: JSON.parse(chart.data) }
+    })
+
+    let liked = await graphics.likedCharts(id)
+
+    liked = liked.map((doc) => {
+      const likedGraph = doc.toObject()
+      return { ...likedGraph, data: JSON.parse(likedGraph.data) }
+    })
+
+    return { graphs, liked }
   }
 
-  const props: any = { session }
+  let graphix
+  let user
 
-  await connectToDB()
+  if (context.params.id) {
+    graphix = await getGraphixs(context.params.id[0])
+    user = [] // need to fix
+  }
 
-  const results = await graphics.getUserCharts(session.user.id)
+  if (!context.params.id) {
+    const session = await getSession(context)
 
-  const charts = results.map((doc) => {
-    const chart = doc.toObject()
-    return { ...chart, data: JSON.parse(chart.data) }
-  })
+    // not signed in
+    if (!session || !session.user) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/signin',
+        },
+      }
+    }
 
-  let liked = await graphics.likedCharts(session.user.id)
-
-  liked = liked.map((doc) => {
-    const likedGraph = doc.toObject()
-    return { ...likedGraph, data: JSON.parse(likedGraph.data) }
-  })
-
-  props.charts = charts
-  props.user = session.user
-  props.liked = liked
+    graphix = await getGraphixs(session.user.id)
+    user = session.user
+  }
 
   return {
-    props,
+    props: { ...graphix, user },
   }
 }
 
