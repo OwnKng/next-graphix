@@ -26,6 +26,7 @@ const BarChart = ({
   const barData = [...data]
 
   if (reordered) barData.sort((a, b) => b[y] - a[y])
+  if (styles.xAxis.textDirection === 'vertical') margin.bottom = 120
 
   // Set dimensions
   const innerWidth = width - margin.left - margin.right

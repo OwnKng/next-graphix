@@ -1,15 +1,20 @@
 import styled from 'styled-components'
+import Link from 'next/link'
 import { connectToDB } from '../../db/connectToDB'
-import { graphics } from '../../db/controllers'
+import { graphics, user as userController } from '../../db/controllers'
 import Line from '../../components/visualisations/Line'
 import Bar from '../../components/visualisations/Bar'
 import Scatter from '../../components/visualisations/scatter'
 import { elevation, Light, Dark } from '../../components/styled/utilities'
 
-const View = ({ graph, className }) => {
-  const viz = graph[0]
+type ViewProps = {
+  graph: any,
+  user: any,
+  className: string
+}
 
-  const theme = viz.theme === 'dark' ? Dark : Light
+const View = ({ graph, user, className }: ViewProps) => {
+  const theme = graph.theme === 'dark' ? Dark : Light
 
   return (
     <div
@@ -22,26 +27,38 @@ const View = ({ graph, className }) => {
           background: theme.background,
         }}
       >
-        <h1>{viz.title}</h1>
-        <h2>{viz.subtitle}</h2>
+        <h1>{graph.title}</h1>
+        <h2>{graph.subtitle}</h2>
         <div className="viz">
-          {viz.geometry === 'bar' && (
-          <Bar {...viz} theme={theme} />
+          {graph.geometry === 'bar' && (
+          <Bar {...graph} theme={theme} />
           )}
-          {viz.geometry === 'line' && (
-          <Line {...viz} theme={theme} />
+          {graph.geometry === 'line' && (
+          <Line {...graph} theme={theme} />
           )}
-          {viz.geometry === 'point' && (
-          <Scatter {...viz} theme={theme} />
+          {graph.geometry === 'point' && (
+          <Scatter {...graph} theme={theme} />
           )}
         </div>
+      </div>
+      <div className="attribution">
+        {user ? (
+          <>
+            <p>Created by </p>
+            <Link href={`/user/${graph.createdBy}`}>
+              <div className="link">
+                <img src={user.image} />
+                <p>{user.name}</p>
+              </div>
+            </Link>
+          </>
+        ) : <p>Created by an unknown user</p>}
       </div>
     </div>
   )
 }
 
 export const getServerSideProps = async (context) => {
-  const props: any = {}
   await connectToDB()
 
   let graph = await graphics.getChart(context.query.id)
@@ -52,17 +69,22 @@ export const getServerSideProps = async (context) => {
     return graph
   }).map((graph) => ({ ...graph, data: JSON.parse(graph.data) }))
 
-  props.graph = graph
+  const user = await userController.getUser(graph[0].createdBy)
+
+  if (!user) {
+    return {
+      props: { graph: graph[0] },
+    }
+  }
 
   return {
-    props,
+    props: { graph: graph[0], user: { name: user.name, image: user.image } },
   }
 }
 
 export default styled(View)`
 min-height: 90vh;  
-display: flex;
-place-items: center;
+padding: 10px;
 
 h1 {
   margin: 0px;
@@ -83,9 +105,39 @@ h2 {
   padding: 10px;
 }
 
-  .viz {
-    position: relative;
-    height: 70vh;
-    width: 100%;
+.viz {
+  position: relative;
+  height: 70vh;
+  width: 100%;
+}
+
+.attribution {
+  padding: 5px;
+  display: flex;
+  place-items: center;
+  width: 90vw;
+  margin: 0px auto;
+
+  .link {
+    display: flex;
+    padding: 0px 10px;
+    color: var(--color-button);
+    font-weight: bold;
+    cursor: pointer;
+    
+    :hover {
+      color: var(--color-button-hover);
+    }
   }
+}
+
+img {
+  margin: 0px auto;
+  border: 1px solid var(--color-button);
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
 `

@@ -50,14 +50,15 @@ const VisualisationGrid = ({ graphs, className }) => {
 
 export default styled(VisualisationGrid)`
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
+grid-template-columns: 1fr 1fr;
 grid-gap: 20px;
-width: calc(100%) - 80px;
-padding: 20px 40px;
-
+width: calc(100% - 80px);
+padding: 0px 40px;
 
 @media only screen and (max-width: 600px) {
     grid-template-columns: 1fr
+    padding: 0px;
+    width: 100%;
 }
 
 h3 {

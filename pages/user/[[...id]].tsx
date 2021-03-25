@@ -1,13 +1,15 @@
 import { getSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { ShareBox } from '@styled-icons/remix-fill/ShareBox'
+import Link from 'next/link'
 import { graphics, user as userController } from '../../db/controllers'
 import GraphList from '../../components/graphList'
 import LikedCharts from '../../components/likedCharts'
 import { connectToDB } from '../../db/connectToDB'
 import VisualisationGrid from '../../components/visualisations/VisualisationGrid'
 
-type AppProps = {
+type UserProps = {
   className: string
   graphs: any[]
   user: object
@@ -15,9 +17,9 @@ type AppProps = {
   param: boolean
 }
 
-const App = ({
+const User = ({
   className, graphs, user, liked, param,
-}: AppProps) => {
+}: UserProps) => {
   const router = useRouter()
 
   const refreshData = () => {
@@ -54,8 +56,14 @@ const App = ({
             's graphix
           </h1>
         </div>
-        <VisualisationGrid graphs={graphs} />
-        <VisualisationGrid graphs={liked} />
+        <div className="row">
+          <h2>Graphs</h2>
+          <VisualisationGrid graphs={graphs} />
+        </div>
+        <div className="row">
+          <h2>Liked Graphs</h2>
+          <VisualisationGrid graphs={liked} />
+        </div>
       </div>
     )
   }
@@ -64,10 +72,15 @@ const App = ({
     <div className={className}>
       <div className="hero">
         <img src={user.image} />
-        <h1>
-          {user.name}
-          's graphix
-        </h1>
+        <div className="title">
+          <h1>
+            {user.name}
+            's graphix
+          </h1>
+          <Link href={`/user/${user.id}`}>
+            <ShareBox className="share" size="30" />
+          </Link>
+        </div>
       </div>
       <GraphList graphs={graphs} deleteChart={deleteChart} likeChart={likeChart} />
       <LikedCharts liked={liked} like={likeChart} />
@@ -125,7 +138,7 @@ export async function getServerSideProps(context: object) {
   }
 }
 
-export default styled(App)`
+export default styled(User)`
   width: 100%;
 
   .hero {
@@ -147,5 +160,49 @@ export default styled(App)`
     text-transform: uppercase;
     text-align: center;
   }
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .share {
+    padding-left: 10px;
+    
+    :hover {
+      color: var(--color-foreground);
+    }
+  }
+
+  .row:nth-of-type(2) {
+    background: var(--color-foreground);
+  }
+
+  .row {
+    display: flex;
+    padding: 20px 20px;
+
+    @media only screen and (max-width: 600px) {
+      display: grid;
+    }
+
+    h2 {
+      flex-basis: 500px;
+      position: relative;
+      margin: 0px;
+      color: var(--color-heading);
+      text-transform: uppercase;
+    }
+  
+    h2:before {
+      content: "";
+      position: absolute;
+      width: 25%;
+      height: 3px;
+      top: 0px;
+      left: 0px;
+      background-color: var(--color-button);
+    }
+  
   }
 `
