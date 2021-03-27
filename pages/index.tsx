@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import Link from 'next/link'
-import { Button } from '../components/styled/elements/Button'
 
 const Home = ({ className }) => (
   <div className={className}>
@@ -14,14 +13,17 @@ const Home = ({ className }) => (
         GRAPHIX is an experimental data visualisation app developed by
         {' '}
         <a href="http://ownkng.dev">Owen King</a>
-        . It provides a powerful visual editor that allows you to construct interactive data visualisations and share them with the world.
+        .
+      </p>
+      <p>
+        It provides a powerful visual editor that allows you to construct interactive data visualisations and share them with the world.
       </p>
     </div>
     <Link href="/discover">
-      <Button>Discover Graphix</Button>
+      <button>Discover Graphix</button>
     </Link>
     <Link href="/user">
-      <Button>Sign up</Button>
+      <button>Sign up</button>
     </Link>
   </div>
 )
@@ -58,5 +60,11 @@ h1 {
 button {
   display: block;
   margin: 10px auto;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--color-heading);
+  color: var(--color-paragraph);
+  background: var(--color-background);
 }
+
 `
