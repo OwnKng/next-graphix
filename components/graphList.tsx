@@ -35,7 +35,7 @@ const GraphList = ({
             <Card key={graph._id}>
               <Link href={`/view/${graph._id}`}>
                 <div>
-                  <div className="title">
+                  <div className="graphTitle">
                     <h3>{graph.title}</h3>
                   </div>
                   <div className="vizWrapper">
@@ -135,12 +135,13 @@ export default styled(GraphList)`
     color: var(--color-button-highlight);
   }
 
-  .title {
+  .graphTitle {
     padding: 10px 20px;
     border-bottom: 1px solid var(--color-border);
 
     h3 {
       margin: 0px;
+
     }
   }
 

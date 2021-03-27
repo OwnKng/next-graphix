@@ -27,7 +27,9 @@ const VisualisationGrid = ({ graphs, className }) => {
         <Card className="card">
           <Link href={`/view/${graph._id}`}>
             <div>
-              <h3>{graph.title}</h3>
+              <div className="graphTitle">
+                <h3>{graph.title}</h3>
+              </div>
               <div className="vizWrapper">
                 <Visualisation key={graph._id} graph={graph} />
               </div>
@@ -61,12 +63,14 @@ padding: 0px 40px;
     width: 100%;
 }
 
-h3 {
-    margin: 0px 0px;
-    padding: 0px 5px;
-    width: calc(100% - 10px);
-    border-bottom: 1px solid var(--color-border);
+.graphTitle {
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--color-border);
+
+  h3 {
+    margin: 0px;
   }
+}
 
 .vizWrapper {
     position: relative;
