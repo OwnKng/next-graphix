@@ -5,6 +5,7 @@ import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
 import styled from 'styled-components'
 import Visualisation from './Visualisation'
 import { Card } from '../styled/elements/Card'
+import { below } from '../styled/utilities'
 
 const VisualisationGrid = ({ graphs, className }) => {
   const router = useRouter()
@@ -66,11 +67,11 @@ padding: 0px 40px;
   }
 }
 
-@media only screen and (max-width: 600px) {
-    grid-template-columns: 1fr
-    padding: 0px;
-    width: 100%;
-}
+${below.med`
+  grid-template-columns: 1fr
+  padding: 0px;
+  width: 100%;
+`}
 
 .graphTitle {
   padding: 10px 20px;

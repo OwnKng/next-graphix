@@ -6,7 +6,7 @@ import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
 import { DeleteOutline } from '@styled-icons/material/DeleteOutline'
 import Visualisation from './visualisations/Visualisation'
 import { Card } from './styled/elements/Card'
-import { elevation } from './styled/utilities'
+import { elevation, below } from './styled/utilities'
 
 type GraphListProps = {
   className: string,
@@ -82,7 +82,7 @@ export default styled(GraphList)`
     grid-gap: 20px;
   }
 
-  @media only screen and (max-width: 600px) {
+  ${below.med`
     .inner {
       display: grid;
       grid-template-columns: 1fr;
@@ -91,7 +91,7 @@ export default styled(GraphList)`
     .right {
       grid-template-columns: 1fr;
     }
-  }
+  `}
 
 
   .like {

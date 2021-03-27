@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
-import { elevation } from './styled/utilities'
+import { elevation, below } from './styled/utilities'
 import { Card } from './styled/elements/Card'
 import Visualisation from './visualisations/Visualisation'
 
@@ -82,17 +82,16 @@ export default styled(LikedCharts)`
     }
   }
 
-
-    @media only screen and (max-width: 600px) {
-      .inner {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-
-      .right {
-        grid-template-columns: 1fr;
-      }
+  ${below.med`
+    .inner {
+      display: grid;
+      grid-template-columns: 1fr;
     }
+
+    .right {
+      grid-template-columns: 1fr;
+    }
+  `}
     
     h2 {
       position: relative;

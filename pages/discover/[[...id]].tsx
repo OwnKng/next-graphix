@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
 import { useRouter } from 'next/router'
 import Visualisation from '../../components/visualisations/Visualisation'
-import { elevation } from '../../components/styled/utilities'
+import { elevation, below } from '../../components/styled/utilities'
 import { Card } from '../../components/styled/elements/Card'
 import { Button } from '../../components/styled/elements/Button'
 import { graphics } from '../../db/controllers/index'
@@ -106,10 +106,6 @@ export default styled(Discover)`
   .action {
     border-top: 1px solid var(--color-border);
     padding: 5px;
-
-    svg:hover {
-      color: var(--color-button);
-    }
   }
 
   .like {
@@ -142,17 +138,17 @@ export default styled(Discover)`
     grid-gap: 20px;
   }
 
-  @media only screen and (max-width: 800px) {
-    .list {
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-
-    .grid {
-      grid-template-columns: 1fr;
-    }
+  ${below.med`
+  .list {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  `};
 
   h1 {
     text-transform: uppercase;

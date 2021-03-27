@@ -93,6 +93,7 @@ export default styled(Header)`
 
     .activePath {
       color: var(--color-button);
+      border-bottom: 2px solid var(--color-button);
     }
 
     .logo {
@@ -124,7 +125,7 @@ export default styled(Header)`
     }
 
   .menuWrapper {
-      width: 100%;
+    width: 100%;
   }
 
   .menu {

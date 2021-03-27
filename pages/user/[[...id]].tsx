@@ -8,6 +8,7 @@ import GraphList from '../../components/graphList'
 import LikedCharts from '../../components/likedCharts'
 import { connectToDB } from '../../db/connectToDB'
 import VisualisationGrid from '../../components/visualisations/VisualisationGrid'
+import { below } from '../../components/styled/utilities'
 
 type UserProps = {
   className: string
@@ -183,9 +184,9 @@ export default styled(User)`
     display: flex;
     padding: 20px 20px;
 
-    @media only screen and (max-width: 600px) {
-      display: grid;
-    }
+    ${below.med`
+    display: grid;
+    `}
 
     h2 {
       flex-basis: 500px;

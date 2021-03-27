@@ -33,8 +33,11 @@ ${normalize}
     box-sizing: border-box;
     color: var(--color-paragraph);
     max-width: 100vw;
-    overflow-x: hidden;
-  }
+
+    main {
+      overflow-x: hidden;
+    }
+
 
 `
 
