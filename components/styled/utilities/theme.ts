@@ -7,7 +7,7 @@ export const theme: DefaultTheme = {
     foreground: '#1e202e',
     middleground: '#F1F1F8',
     border: '#0d0f17',
-    accent: '#D61C2B',
+    accent: '#D43F3AFF',
     userInput: '#3d59a144',
     selected: '#7796CB',
     heading: '#EEF6FC',

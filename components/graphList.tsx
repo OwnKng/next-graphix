@@ -44,11 +44,15 @@ const GraphList = ({
                 </div>
               </Link>
               <div className="actions">
-                <div>
-                  <span>{graph.likes}</span>
-                  <ThumbsUp className="like" onClick={() => likeChart(graph._id)} size="30" />
+                <div style={{ display: 'flex' }}>
+                  <span style={{ marginRight: 5 }}>{graph.likes}</span>
+                  <div className="like">
+                    <ThumbsUp onClick={() => likeChart(graph._id)} size="30" />
+                  </div>
                 </div>
-                <DeleteOutline className="bin" size="30" onClick={() => deleteChart(graph._id)} />
+                <div className="bin">
+                  <DeleteOutline size="30" onClick={() => deleteChart(graph._id)} />
+                </div>
               </div>
             </Card>
           ))}
@@ -89,20 +93,22 @@ export default styled(GraphList)`
     }
   }
 
-  span {
-    color: var(--color-button);
-  }
 
   .like {
+    background: var(--color-button);
+    border-radius: 50%;
+    padding: 2px;
+    border: 1px solid var(--color-heading);
     :hover {
-      color: var(--color-button);
+      background: var(--color-button-hover);
     }
   }
 
   .bin {
-    :hover {
-      color: var(--color-accent);
-    }
+    background: var(--color-accent);
+    border-radius: 50%;
+    border: 1px solid var(--color-heading);
+    padding: 2px;
   }
 
   h2 {

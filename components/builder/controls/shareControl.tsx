@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import styled from 'styled-components'
 import { Menu } from '../../styled/elements/Menu'
 import Control from '../../styled/elements/Control'
 import { Heading } from '../../styled/elements/Heading'
 import { useSelections } from '../../../hooks'
 import { Button } from '../../styled/elements/Button'
 
-const ShareControls = ({ open, setOpen }) => {
+const ShareControls = ({ open, setOpen, className }) => {
   const { selections, updateSelections } = useSelections()
   const [reminder, setReminder] = useState(false)
   const [shared, setShared] = useState({ link: null, error: false })
@@ -33,7 +34,7 @@ const ShareControls = ({ open, setOpen }) => {
   const { link, error } = shared
 
   return (
-    <Menu>
+    <Menu className={className}>
       <Heading onClick={() => setOpen('share')}>Share</Heading>
       <Control open={open}>
         <div>
@@ -62,7 +63,11 @@ const ShareControls = ({ open, setOpen }) => {
               {error}
             </motion.span>
           )}
-        {link && <Link href={`/discover/${link}`}>{link}</Link>}
+        {link && (
+        <Link href={`/view/${link}`}>
+          <a className="shareLink">Link created! View graph</a>
+        </Link>
+        )}
         {reminder && (
           <span style={{ textAlign: 'center' }}>
             Can't save graph until selections are complete. Your graph must have
@@ -75,4 +80,15 @@ const ShareControls = ({ open, setOpen }) => {
   )
 }
 
-export default ShareControls
+export default styled(ShareControls)`
+
+a {
+  color: var(--color-button);
+}
+
+.shareLink {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+`

@@ -146,7 +146,8 @@ export default styled(User)`
     flex-direction: column;
     padding: 100px 0px 20px;
     justify-items: flex-end;
-    background: var(--color-button);
+    background: rgb(34,193,195);
+    background: linear-gradient(to bottom right, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
     
   img {
     margin: 0px auto;

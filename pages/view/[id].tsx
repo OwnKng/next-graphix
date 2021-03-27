@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
+import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
+import { useRouter } from 'next/router'
 import { connectToDB } from '../../db/connectToDB'
 import { graphics, user as userController } from '../../db/controllers'
 import Line from '../../components/visualisations/Line'
@@ -15,6 +17,18 @@ type ViewProps = {
 
 const View = ({ graph, user, className }: ViewProps) => {
   const theme = graph.theme === 'dark' ? Dark : Light
+
+  const router = useRouter()
+
+  const likeGraph = async (_id: string) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/likes/${_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (res.status === 200) router.reload()
+  }
 
   return (
     <div
@@ -53,6 +67,14 @@ const View = ({ graph, user, className }: ViewProps) => {
             </Link>
           </>
         ) : <p>Created by an unknown user</p>}
+      </div>
+      <div className="action">
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: 5 }}>{graph.likes}</span>
+          <div className="like">
+            <ThumbsUp onClick={() => likeGraph(graph._id)} size="30" />
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -99,7 +121,6 @@ h2 {
 .vizWrapper {
   ${elevation[1]}; 
   width: 90vw;
-  height: 80vh;
   margin: 0px auto;
   background: var(--color-foreground);
   padding: 10px;
@@ -130,6 +151,26 @@ h2 {
     }
   }
 }
+
+.action {
+  padding: 5px;
+  display: flex;
+  place-items: center;
+  width: 90vw;
+  margin: 0px auto;
+
+  .like {
+    background: var(--color-button);
+    border-radius: 50%;
+    padding: 2px;
+    border: 1px solid var(--color-heading);
+    :hover {
+      background: var(--color-button-hover);
+    }
+  }
+}
+
+
 
 img {
   margin: 0px auto;

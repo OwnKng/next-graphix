@@ -20,7 +20,7 @@ const Discover = ({
 }: DiscoverProps) => {
   const router = useRouter()
 
-  const likeChart = async (_id: string) => {
+  const likeGraph = async (_id: string) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/likes/${_id}`, {
       method: 'PUT',
       headers: {
@@ -53,13 +53,12 @@ const Discover = ({
                   </div>
                 </Link>
                 <div className="action">
-                  {graph.likes}
-                  <ThumbsUp
-                    size="30"
-                    onClick={() => {
-                      likeChart(graph._id)
-                    }}
-                  />
+                  <div style={{ display: 'flex' }}>
+                    <span style={{ marginRight: 5 }}>{graph.likes}</span>
+                    <div className="like">
+                      <ThumbsUp onClick={() => likeGraph(graph._id)} size="30" />
+                    </div>
+                  </div>
                 </div>
               </Card>
             ))}
@@ -99,8 +98,9 @@ export default styled(Discover)`
   border: 1px solid var(--colors-border);
 
   .hero {
-    background: var(--color-button);
     padding: 100px 0px;
+    background: rgb(246,111,25);
+    background: linear-gradient(to bottom right, rgba(246,111,25,1) 10%, #5887FF 100%);
   }
 
   .action {
@@ -109,6 +109,16 @@ export default styled(Discover)`
 
     svg:hover {
       color: var(--color-button);
+    }
+  }
+
+  .like {
+    background: var(--color-button);
+    border-radius: 50%;
+    padding: 2px;
+    border: 1px solid var(--color-heading);
+    :hover {
+      background: var(--color-button-hover);
     }
   }
 

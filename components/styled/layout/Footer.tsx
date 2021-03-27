@@ -6,14 +6,24 @@ interface FooterProps {
 
 const Footer = ({ className }: FooterProps) => (
   <footer className={className}>
-    <span>Created by Owen King</span>
+    <span>
+      GRAPHIX 2021 - created by
+      {' '}
+      <a href="http://ownkng.dev">Owen King</a>
+    </span>
   </footer>
 )
 
 export default styled(Footer)`
     bottom: 0px;
-    height: 5vh;
     width: 100%;
+    text-align: center;
     background: var(--color-primary);
     color: var(--color-heading);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--color-border);
+
+    a {
+      color: var(--color-button);
+    }
 `

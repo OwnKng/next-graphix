@@ -11,8 +11,5 @@ export const CloseButton = styled.button`
   text-align: center;
   font-weight: bold;
   font-size: 1.4rem;
-  background: var(--color-accentTwo);
-  :hover {
-    background: var(--color-button);
-  }
+  background: var(--color-button);
 `

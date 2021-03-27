@@ -32,9 +32,11 @@ const LikedCharts = ({ liked, like, className }: LikedChartsProps) => (
                 </div>
               </Link>
               <div className="actions">
-                <div>
-                  <span>{graph.likes}</span>
-                  <ThumbsUp size="30" onClick={() => like(graph._id)} />
+                <div style={{ display: 'flex' }}>
+                  <span style={{ marginRight: 5 }}>{graph.likes}</span>
+                  <div className="like">
+                    <ThumbsUp onClick={() => like(graph._id)} size="30" />
+                  </div>
                 </div>
               </div>
             </Card>
@@ -48,6 +50,7 @@ const LikedCharts = ({ liked, like, className }: LikedChartsProps) => (
 )
 
 export default styled(LikedCharts)`
+
     background: var(--color-background);
     padding: 20px 0px;
   
@@ -66,6 +69,19 @@ export default styled(LikedCharts)`
       grid-template-columns: 1fr 1fr;
       grid-gap: 20px;
     }
+
+
+  .like {
+    background: var(--color-button);
+    border-radius: 50%;
+    padding: 2px;
+    border: 1px solid var(--color-heading);
+    
+    :hover {
+      background: var(--color-button-hover);
+    }
+  }
+
 
     @media only screen and (max-width: 600px) {
       .inner {
