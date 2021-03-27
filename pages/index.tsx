@@ -58,6 +58,7 @@ h1 {
 }
 
 button {
+  font-size: 1.2rem;
   display: block;
   margin: 10px auto;
   padding: 10px;
