@@ -20,7 +20,7 @@ const GraphixBuilder = ({ className, data }: GraphixBuilderProps) => (
 
 export default styled(GraphixBuilder)`
     width: 95vw;
-    padding: 10px 20px;
+    padding: 10px 0px;
     height: 85vh;
     background: var(--color-background);
     display: grid;
@@ -29,11 +29,12 @@ export default styled(GraphixBuilder)`
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: 25px;
-
+   
     @media only screen and (max-width: 600px) {
       height: auto;
       grid-template-areas: "viz" "controls";
       grid-template-columns: 1fr;
       grid-template-rows: 1fr auto;
+      overflow: hidden;
     }
 `

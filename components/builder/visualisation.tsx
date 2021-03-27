@@ -55,6 +55,7 @@ const Visualisation = ({ className }: VisualisationProps) => {
 
 export default styled(Visualisation)`
 width: 100%;
+max-width: 100%;
 
 input {
   background: var(--color-foreground);
@@ -83,6 +84,5 @@ input:focus{
   background: var(--color-foreground);
   position: relative;
   height: 70vh;
-  width: 100%;
   ${elevation[1]};
 }`

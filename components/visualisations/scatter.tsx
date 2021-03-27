@@ -42,7 +42,7 @@ const Scatter = ({
   width,
   height,
   margin = {
-    top: 60, left: 60, right: 30, bottom: 80,
+    top: 60, left: 60, right: 60, bottom: 80,
   },
 }: ScatterProps) => {
   // Set dimensions
@@ -158,11 +158,11 @@ const Scatter = ({
         && tooltipLeft != null
         && tooltipTop != null && (
           <TooltipWithBounds
-            left={tooltipLeft + 10}
-            top={tooltipTop + 10}
+            left={tooltipLeft}
+            top={tooltipTop}
             style={defaultStyles}
           >
-            <h3
+            <p
               style={{
                 color: colorScale(getColor(tooltipData)),
                 paddding: 0,
@@ -170,7 +170,7 @@ const Scatter = ({
               }}
             >
               {getLabel(tooltipData)}
-            </h3>
+            </p>
           </TooltipWithBounds>
       )}
       {color !== 'none' ? (

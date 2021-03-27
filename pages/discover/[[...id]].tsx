@@ -132,7 +132,7 @@ export default styled(Discover)`
     grid-gap: 20px;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
     .list {
       display: grid;
       grid-template-columns: 1fr;

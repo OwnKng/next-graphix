@@ -144,7 +144,7 @@ export default styled(Header)`
 
     a {
       color: var(--color-heading);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       padding: 5px 0px;
       text-decoration: none;
       width: 100%;

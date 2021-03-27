@@ -26,7 +26,7 @@ const LineChart = ({
   height,
   theme,
   margin = {
-    top: 60, left: 60, right: 30, bottom: 80,
+    top: 60, left: 60, right: 60, bottom: 80,
   },
 }) => {
   // Set dimensions
@@ -146,8 +146,8 @@ const LineChart = ({
       {x && y && tooltipData && (
         <TooltipWithBounds
           key={Math.random()}
-          top={tooltipTop - 12}
-          left={tooltipLeft + 12}
+          top={tooltipTop}
+          left={tooltipLeft}
           style={tooltipStyles}
         >
           {tooltipData.length && (
@@ -156,14 +156,17 @@ const LineChart = ({
               {tooltipData.map((d, i) => (
                 <div
                   key={`tooltip-${i}`}
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
+                  style={{ }}
                 >
                   {color && (
-                    <p style={{ color: colorScale(getColor(d)) }}>
+                    <p style={{
+                      color: colorScale(getColor(d)),
+                    }}
+                    >
                       {getColor(d)}
                     </p>
                   )}
-                  <p>{getY(d)}</p>
+                  <p style={{ color: colorScale(getColor(d)) }}>{getY(d)}</p>
                 </div>
               ))}
             </>
@@ -187,6 +190,8 @@ const ChartWrapper = (props) => (
 
 export default styled(ChartWrapper)`
   .tooltip-title {
+    margin: 0px;
+    padding: 0px;
     color: var(--color-background);
     text-align: center;
     font-weight: bold;

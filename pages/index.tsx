@@ -10,11 +10,17 @@ const Home = ({ className }) => (
     </div>
     <div className="copy">
       <h4>Build beautiful, interactive and responsive graphics with ease</h4>
+      <p>
+        GRAPHIX is an experimental data visualisation app developed by
+        {' '}
+        <a href="http://ownkng.dev">Owen King</a>
+        . It provides a powerful visual editor that allows you to construct interactive data visualisations and share them with the world.
+      </p>
+      <Link href="/user">
+        <Button>Sign up</Button>
+      </Link>
       <Link href="/discover">
         <Button>Discover Graphix</Button>
-      </Link>
-      <Link href="/user">
-        <Button>Sign In</Button>
       </Link>
     </div>
   </div>
@@ -38,8 +44,10 @@ h1 {
 }
 
 .copy {
+  width: 100%;
+  max-width: 720px;
+  margin: 0px auto;
   text-align: center;
-
 
   button {
     margin: 10px auto;
