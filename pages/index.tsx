@@ -34,6 +34,10 @@ const Home = ({ className }) => (
 export default styled(Home)`
 min-height: 100vh;
 
+a {
+  color: var(--color-button);
+}
+
 .hero {
     display: flex;
     flex-direction: column;
