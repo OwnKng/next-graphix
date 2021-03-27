@@ -20,7 +20,8 @@ export default styled(Footer)`
     text-align: center;
     background: var(--color-primary);
     color: var(--color-heading);
-    font-size: 0.8rem;
+    font-size: 1rem;
+    padding: 10px 0px;
     border-top: 1px solid var(--color-border);
 
     a {

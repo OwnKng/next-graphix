@@ -5,10 +5,10 @@ const Home = ({ className }) => (
   <div className={className}>
     <div className="hero">
       <h1>Graphix</h1>
-      <h3>The Powerful Graph Creator</h3>
+      <h3>Build and share beautiful, interactive and responsive graph with ease</h3>
     </div>
     <div className="copy">
-      <h4>Build and share beautiful, interactive and responsive graphics with ease</h4>
+
       <p>
         GRAPHIX is an experimental data visualisation app developed by
         {' '}
