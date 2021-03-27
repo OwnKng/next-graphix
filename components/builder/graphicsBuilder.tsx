@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Visualisation from './visualisation'
 import Controls from './controls'
+import { below } from '../styled/utilities'
 
 type GraphixBuilderProps = {
   className: string,
@@ -29,12 +30,12 @@ export default styled(GraphixBuilder)`
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: 25px;
-   
-    @media only screen and (max-width: 600px) {
+
+    ${below.med`
       height: auto;
       grid-template-areas: "viz" "controls";
       grid-template-columns: 1fr;
       grid-template-rows: 1fr auto;
       overflow: hidden;
-    }
+    `}
 `
