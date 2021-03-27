@@ -17,17 +17,12 @@ const Home = ({ className }) => (
         . It provides a powerful visual editor that allows you to construct interactive data visualisations and share them with the world.
       </p>
     </div>
-    <div className="buttons">
-      <Link href="/user">
-        <Button>Sign up</Button>
-      </Link>
-      <Link href="/discover">
-        <Button>Discover Graphix</Button>
-      </Link>
-    </div>
-    <video width="100%" height="500px" autoPlay loop>
-      <source src="/demo.mp4" type="video/mp4" />
-    </video>
+    <Link href="/discover">
+      <Button>Discover Graphix</Button>
+    </Link>
+    <Link href="/user">
+      <Button>Sign up</Button>
+    </Link>
   </div>
 )
 
@@ -60,10 +55,8 @@ h1 {
   text-align: center;
 }
 
-.buttons {
-  justify-content: space-around;
-  width: calc(100% - 10px);
-  max-width: 800px;
-  display: flex;
-  margin: 0px auto;
-}`
+button {
+  display: block;
+  margin: 10px auto;
+}
+`

@@ -14,6 +14,10 @@ const AxisLeft = ({
         hideTicks
         label={y}
         tickFormat={format('.2s')}
+        labelProps={{
+          fill: color,
+          fontSize: '0.8rem',
+        }}
         tickLabelProps={() => ({
           fill: color,
           fontSize: 12,
@@ -28,6 +32,10 @@ const AxisLeft = ({
       scale={scale}
       label={y}
       tickFormat={format('.2s')}
+      labelProps={{
+        fill: color,
+        fontSize: '0.8rem',
+      }}
       tickLabelProps={() => ({
         fill: color,
         fontSize: 12,

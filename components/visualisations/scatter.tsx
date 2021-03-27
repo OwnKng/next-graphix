@@ -42,7 +42,7 @@ const Scatter = ({
   width,
   height,
   margin = {
-    top: 60, left: 60, right: 60, bottom: 80,
+    top: 60, left: 60, right: 30, bottom: 80,
   },
 }: ScatterProps) => {
   // Set dimensions

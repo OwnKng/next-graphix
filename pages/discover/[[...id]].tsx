@@ -43,12 +43,12 @@ const Discover = ({
           {graphs && (
           <div className="grid">
             {graphs.map((graph) => (
-              <Card className="card">
+              <Card className="card" key={graph._id}>
                 <Link href={`/view/${graph._id}`}>
                   <div>
                     <h3>{graph.title}</h3>
                     <div className="vizWrapper">
-                      <Visualisation key={graph._id} graph={graph} />
+                      <Visualisation graph={graph} />
                     </div>
                   </div>
                 </Link>

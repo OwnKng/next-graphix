@@ -21,7 +21,7 @@ const signin = ({ className }: signinProps) => {
   return (
     <div className={className}>
       <h2>Sign in</h2>
-      <p>Sign into graphix</p>
+      <p>Sign into GRAPHIX</p>
       <Button onClick={() => signIn('github')}>
         Sign in via GitHub
       </Button>

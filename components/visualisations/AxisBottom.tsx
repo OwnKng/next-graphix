@@ -15,6 +15,10 @@ const AxisBottom = ({
         tickStroke={color}
         tickFormat={format('d')}
         label={x}
+        labelProps={{
+          fill: color,
+          fontSize: '0.8rem',
+        }}
         tickLabelProps={() => ({
           fill: color,
           fontSize: 12,
@@ -33,6 +37,10 @@ const AxisBottom = ({
       numTicks={scale.domain().length}
       stroke={color}
       tickStroke={color}
+      labelProps={{
+        fill: color,
+        fontSize: '0.8rem',
+      }}
       tickLabelProps={() => ({
         fill: color,
         fontSize: 12,
