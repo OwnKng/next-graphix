@@ -120,6 +120,12 @@ export default styled(DataInput)`
     resize: none;
   }
 
+  @media only screen and (max-width: 1000px) {
+    textarea {
+      height: 100px;
+    }
+  }
+
   label {
     display: block;
     text-transform: uppercase;

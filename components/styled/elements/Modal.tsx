@@ -58,7 +58,7 @@ export default styled(Modal)`
     color: var(--color-paragraph);
     padding: 20px;
     width: 80%;
-    max-height: 90vh;
+    max-height: 70vh;
     min-width: 240px;
     z-index: 1;
     border-radius: 10px;
