@@ -7,7 +7,7 @@ import { localPoint } from '@visx/event'
 import { voronoi } from '@visx/voronoi'
 import { useRef, useMemo, useCallback } from 'react'
 import { useScale } from '../../hooks'
-import { VizLight, palettes } from '../styled/utilities'
+import { palettes } from '../styled/utilities'
 
 import AxisLeft from './AxisLeft'
 import AxisBottom from './AxisBottom'
@@ -139,7 +139,14 @@ const Scatter = ({
             width={innerWidth}
           />
         </g>
-        <AxisBottom x={x} top={innerHeight + margin.top} scale={xScale} color={theme.text} styles={styles.xAxis} />
+        <AxisBottom
+          x={x}
+          top={innerHeight + margin.top}
+          scale={xScale}
+          color={theme.text}
+          styles={styles.xAxis}
+          ticks={width > 600 ? 5 : 2}
+        />
         {geometry === 'point'
           && data.map((point, i) => (
             <Circle

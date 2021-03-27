@@ -3,7 +3,7 @@ import { AxisBottom as AxisBottomVisx } from '@visx/axis'
 import { format } from 'd3'
 
 const AxisBottom = ({
-  top, animated = true, scale, x, color, styles,
+  top, animated = true, scale, x, color, styles, ticks = 2,
 }) => {
   if (animated) {
     return (
@@ -13,6 +13,7 @@ const AxisBottom = ({
         scale={scale}
         stroke={color}
         tickStroke={color}
+        numTicks={ticks}
         tickFormat={format('d')}
         label={x}
         labelProps={{

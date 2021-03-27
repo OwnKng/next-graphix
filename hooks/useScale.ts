@@ -12,6 +12,7 @@ export const useScale = (data, x) => {
   if (isNumeric === true) {
     scale = scaleLinear({
       domain: extent(data, x),
+      nice: true,
     })
   } else {
     scale = scaleBand({
