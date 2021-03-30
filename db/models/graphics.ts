@@ -67,7 +67,7 @@ const graphicsSchema = new mongoose.Schema(
     public: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
     likes: {
       type: Number,

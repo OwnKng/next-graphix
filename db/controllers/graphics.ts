@@ -31,13 +31,13 @@ export const getUserCharts = async (userId: string) => Graphics.find({ createdBy
 
 export const getChart = async (chartId: string) => Graphics.findById(chartId, { createdAt: 0, updatedAt: 0 })
 
-export const getCharts = async (offset: string) => {
+export const getGraphs = async (offset: string) => {
   const limit = 8
 
   let hasNextPage = false
 
   let graphics = await Graphics
-    .find({}, { createdAt: 0, updatedAt: 0 })
+    .find({ public: true }, { createdAt: 0, updatedAt: 0 })
     .skip(parseInt(offset))
     .sort({ likes: -1 })
     .limit(limit + 1)

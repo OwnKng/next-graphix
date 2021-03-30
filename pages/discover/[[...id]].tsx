@@ -1,18 +1,26 @@
 import styled from 'styled-components'
+
 import Link from 'next/link'
-import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
 import { useRouter } from 'next/router'
+import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
+
+// Visualisation component, which displays the graph
 import Visualisation from '../../components/visualisations/Visualisation'
+
+// Styled elements
 import { elevation, below } from '../../components/styled/utilities'
 import { Card } from '../../components/styled/elements/Card'
 import { Button } from '../../components/styled/elements/Button'
+
+// For the server-side code
 import { graphics } from '../../db/controllers/index'
 import { connectToDB } from '../../db/connectToDB'
 
 type DiscoverProps = {
   className: string,
   hasNextPage: boolean,
-  graphs: any[]
+  graphs: any[],
+  offset: number
 }
 
 const Discover = ({
@@ -20,6 +28,7 @@ const Discover = ({
 }: DiscoverProps) => {
   const router = useRouter()
 
+  // Sends a PUT request to the API route for handling likes
   const likeGraph = async (_id: string) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST || ''}/api/likes/${_id}`, {
       method: 'PUT',
@@ -39,6 +48,7 @@ const Discover = ({
         <div className="left">
           <h2>Most liked graphix</h2>
         </div>
+        {/* Map through each graph */}
         <div className="right">
           {graphs && (
           <div className="grid">
@@ -55,15 +65,16 @@ const Discover = ({
                 <div className="action">
                   <div style={{ display: 'flex' }}>
                     <span style={{ marginRight: 5 }}>{graph.likes}</span>
-                    <div className="like">
+                    <button className="like">
                       <ThumbsUp onClick={() => likeGraph(graph._id)} size="30" />
-                    </div>
+                    </button>
                   </div>
                 </div>
               </Card>
             ))}
           </div>
           )}
+          {/* If the hasNextPage prop is true, return a button to push to the next set of graphs */}
           <div className="pagination">
             {hasNextPage && (
               <Button onClick={() => router.push(`/discover/${offset + 8}`)}>Load more</Button>
@@ -76,19 +87,27 @@ const Discover = ({
 }
 
 export const getServerSideProps = async (context: object) => {
+  // detects whether there is an offset in the page url (e.g. discover/8)
+  const pageOffset = context.params.id || undefined
+
+  // Connects to the database
   await connectToDB()
 
-  const results = await graphics.getCharts(context.params.id || undefined)
+  // Get the graphs
+  const results = await graphics.getGraphs(pageOffset)
 
+  // Tidy the data before it's passed to the component
   const graphs = results.graphics.map((doc) => {
     const graph = doc.toObject()
     return { ...graph, data: JSON.parse(graph.data) }
   })
 
+  // de-structure hasNextPage from the results
   const { hasNextPage } = results
 
+  // Return props to the component
   return {
-    props: { graphs, hasNextPage, offset: context.params.id || 0 },
+    props: { graphs, hasNextPage, offset: pageOffset || 0 },
   }
 }
 
@@ -111,7 +130,9 @@ export default styled(Discover)`
   .like {
     background: var(--color-button);
     border-radius: 50%;
-    padding: 2px;
+    padding: 4px;
+    outline: none;
+    color: var(--color-heading);
     border: 1px solid var(--color-heading);
     :hover {
       background: var(--color-button-hover);
