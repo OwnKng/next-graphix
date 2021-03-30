@@ -72,7 +72,7 @@ export const getServerSideProps = async (context: object) => {
   const { hasNextPage } = results
 
   return {
-    props: { graphs, hasNextPage },
+    props: { graphs: graphs.slice(0, 4), hasNextPage },
   }
 }
 
