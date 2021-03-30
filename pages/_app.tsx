@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: any) {
     <Provider session={pageProps.session}>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <Layout>
+        <Layout pageTitle="GRAPHIX" description="data viz app">
           <Component {...pageProps} />
         </Layout>
       </ThemeProvider>
