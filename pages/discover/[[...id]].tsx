@@ -75,11 +75,11 @@ const Discover = ({
           </div>
           )}
           {/* If the hasNextPage prop is true, return a button to push to the next set of graphs */}
+          {hasNextPage && (
           <div className="pagination">
-            {hasNextPage && (
-              <Button onClick={() => router.push(`/discover/${offset + 8}`)}>Load more</Button>
-            )}
+            <Button onClick={() => router.push(`/discover/${offset + 8}`)}>Load more</Button>
           </div>
+          )}
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@ const Discover = ({
 
 export const getServerSideProps = async (context: object) => {
   // detects whether there is an offset in the page url (e.g. discover/8)
-  const pageOffset = context.params.id || undefined
+  const pageOffset = context.params.id || 0
 
   // Connects to the database
   await connectToDB()
@@ -107,7 +107,7 @@ export const getServerSideProps = async (context: object) => {
 
   // Return props to the component
   return {
-    props: { graphs, hasNextPage, offset: pageOffset || 0 },
+    props: { graphs, hasNextPage, offset: pageOffset },
   }
 }
 
