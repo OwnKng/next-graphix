@@ -17,7 +17,7 @@ const DataInput = ({ className, toggle }: dataInputProps) => {
   const [title, setTitle] = useState<string | undefined>()
 
   const postData = async () => {
-    const dataset = { name: title, data: JSON.stringify(data), public: true }
+    const dataset = { name: title, data: JSON.stringify(data), public: false }
     const res = await fetch('/api/data', {
       method: 'POST',
       body: JSON.stringify(dataset),
