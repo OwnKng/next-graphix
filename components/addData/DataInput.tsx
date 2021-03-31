@@ -65,6 +65,7 @@ const DataInput = ({ className, toggle }: dataInputProps) => {
               name="name"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
+              autoComplete="off"
             />
             <label htmlFor="dataInput">
               Paste csv data here
