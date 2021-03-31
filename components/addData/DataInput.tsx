@@ -18,7 +18,7 @@ const DataInput = ({ className, toggle }: dataInputProps) => {
 
   const postData = async () => {
     const dataset = { name: title, data: JSON.stringify(data), public: true }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/data`, {
+    const res = await fetch('/api/data', {
       method: 'POST',
       body: JSON.stringify(dataset),
       headers: {
