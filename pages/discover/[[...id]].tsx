@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { ThumbsUp } from '@styled-icons/feather/ThumbsUp'
 
 // Visualisation component, which displays the graph
+import { GetServerSideProps } from 'next/types'
 import Visualisation from '../../components/visualisations/Visualisation'
 
 // Styled elements
@@ -63,12 +64,10 @@ const Discover = ({
                   </div>
                 </Link>
                 <div className="action">
-                  <div style={{ display: 'flex' }}>
-                    <span style={{ marginRight: 5 }}>{graph.likes}</span>
-                    <button className="like">
-                      <ThumbsUp onClick={() => likeGraph(graph._id)} size="30" />
-                    </button>
-                  </div>
+                  <span style={{ marginRight: 5 }}>{graph.likes}</span>
+                  <button className="like">
+                    <ThumbsUp onClick={() => likeGraph(graph._id)} size="30" />
+                  </button>
                 </div>
               </Card>
             ))}
@@ -86,7 +85,7 @@ const Discover = ({
   )
 }
 
-export const getServerSideProps = async (context: object) => {
+export const getServerSideProps: GetServerSideProps = async (context: object) => {
   // detects whether there is an offset in the page url (e.g. discover/8)
   const pageOffset = context.params.id || 0
 
