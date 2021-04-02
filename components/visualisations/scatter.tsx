@@ -4,8 +4,8 @@ import { scaleOrdinal } from '@visx/scale'
 import { AnimatedGridRows } from '@visx/react-spring'
 import { useTooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip'
 import { localPoint } from '@visx/event'
-import { voronoi } from '@visx/voronoi'
 import { useRef, useMemo, useCallback } from 'react'
+import { Delaunay } from 'd3-delaunay'
 import { useScale } from '../../hooks'
 import { palettes } from '../styled/utilities'
 
@@ -45,6 +45,8 @@ const Scatter = ({
     top: 60, left: 60, right: 30, bottom: 80,
   },
 }: ScatterProps) => {
+  if (width <= 0) return null // wait for a correct width value
+
   // Set dimensions
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.bottom - margin.top
@@ -79,13 +81,9 @@ const Scatter = ({
   const svgRef = useRef(null)
 
   const voronoiLayout = useMemo(
-    () => voronoi({
-      x: (d) => xScale(getX(d)) ?? 0,
-      y: (d) => yScale(getY(d)) ?? 0,
-      width,
-      height,
-    })(data),
-    [data, width, height, getX, getY, xScale, yScale],
+    () => Delaunay
+      .from(data, (d) => xScale(getX(d)), (d) => yScale(getY(d))),
+    [width, height, xScale, yScale],
   )
 
   let tooltipTimeout: any
@@ -95,18 +93,18 @@ const Scatter = ({
       if (tooltipTimeout) clearTimeout(tooltipTimeout)
       if (!svgRef.current) return
       const point = localPoint(svgRef.current, event)
-      if (!point) return
-      const neighborRadius = 100
-      const closest = voronoiLayout.find(point.x, point.y, neighborRadius)
-      if (closest) {
+      const closest = voronoiLayout.find(point.x, point.y)
+      const tooltipPoint = data[closest]
+
+      if (tooltipPoint) {
         showTooltip({
-          tooltipLeft: xScale(getX(closest.data)),
-          tooltipTop: yScale(getY(closest.data)),
-          tooltipData: closest.data,
+          tooltipLeft: xScale(getX(tooltipPoint)),
+          tooltipTop: yScale(getY(tooltipPoint)),
+          tooltipData: tooltipPoint,
         })
       }
     },
-    [getX, getY, xScale, yScale, showTooltip, voronoiLayout, tooltipTimeout],
+    [getX, getY, xScale, yScale, showTooltip, tooltipTimeout],
   )
 
   const handleMouseLeave = useCallback(() => {
